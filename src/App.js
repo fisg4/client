@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container">
+      <header className="border-bottom">
+        <div className="row my-3">
+          <div className="col-8 offset-2 text-center">
+            <a href="http://localhost:3000/">
+              <img src="fastMusik_logo.svg" alt="Logo FastMusik" width={200} height={75}/>
+            </a>
+          </div>
+          <div className="col-2 text-end">
+            <a href="http://localhost:3000/">
+              <i class="bi bi-person-circle"></i>
+            </a>
+          </div>
+        </div>
       </header>
+      <main className="my-3">
+        Holaa
+      </main>
     </div>
   );
 }
