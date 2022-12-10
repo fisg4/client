@@ -14,7 +14,7 @@ function App() {
             </div>
             <div className="col-2 text-end py-2">
               <a href="http://localhost:3000/">
-                <img src={perfil} className="img-fluid align-middle header-perfil" alt="Perfil Photo" />
+                <img src={perfil} className="img-fluid align-middle header-perfil" alt="Perfil" />
               </a>
             </div>
           </div>
