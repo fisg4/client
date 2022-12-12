@@ -1,12 +1,13 @@
-import Message from "./components/Message";
+import React from 'react'
+import ContactList from './components/ContactList';
+import ActiveChat from './components/ActiveChat';
+import '../css/Messages.css'
 
-function Messages() {
+export default function Messages() {
     return (
-        <div>
-            <h2 className="text-center">Esta es la página de mensajes</h2>
-            <Message />
+        <div className="Chat">
+            <ContactList />
+            <ActiveChat />
         </div>
     );
 }
-
-export default Messages;
