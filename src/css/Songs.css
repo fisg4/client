@@ -1,0 +1,36 @@
+.songCard {
+  border: 1px solid #851ff8;
+  border-radius: 5px;
+  padding: 2em;
+  margin-bottom: 1em;
+}
+
+.songCard img {
+  max-width: 150px;
+}
+
+.songsContainer {
+  margin: 1.5em 0;
+}
+
+.btnAddSong {
+  border: 1.5px solid #851ff8;
+  background-color: #edebfe;
+  color: white;
+  border-radius: 50%;
+  padding: 2em;
+  width: 3em;
+  height: 3em;
+  color: #851ff8;
+  transition: 500ms;
+}
+
+.btnAddSong span {
+  font-size: 1.4em;
+}
+
+.btnAddSong:hover {
+  background-color: #851ff8;
+  color: #edebfe;
+  transition: 500ms;
+}
