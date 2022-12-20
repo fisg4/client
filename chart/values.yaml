@@ -1,4 +1,2 @@
 client:
   replicaCount: 1
-
-apiGatewayHost: http://localhost:3000

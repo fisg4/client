@@ -21,12 +21,6 @@ spec:
       containers:
         - name: client
           image: {{ .Values.client.image }}
-          env:
-            - name: API_GATEWAY_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: hosts
-                  key: api_gateway_host
           ports:
             - name: http
               containerPort: 3000
