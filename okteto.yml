@@ -1,0 +1,14 @@
+build:
+  client:
+    context: .
+
+deploy:
+  - helm upgrade --install client chart
+    --set client.image=${OKTETO_BUILD_CLIENT_IMAGE}
+    --set apiGatewayHost=$API_GATEWAY_HOST
+
+dev:
+  client:
+    command: npm start
+    sync:
+      - .:/app
