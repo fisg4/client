@@ -17,7 +17,24 @@ function SearchForm({ handleSpotifySearchClick }) {
 
     const songs = await response.json();
 
-    handleSpotifySearchClick(songs);
+    handleSpotifySearchClick({songs, spotify: true});
+  }
+
+  async function searchSong() {
+    const request = new Request("/api/v1/songs?title=" + query, {
+      method: "GET",
+      headers: {},
+    });
+
+    const response = await fetch(request);
+
+    if (!response.ok) {
+      throw Error("Response not valid. " + response.status);
+    }
+
+    const songs = await response.json();
+
+    handleSpotifySearchClick({songs, spotify: false});
   }
 
   return (
@@ -37,6 +54,7 @@ function SearchForm({ handleSpotifySearchClick }) {
             className="btn border-purple text-purple"
             type="button"
             id="button-addon2"
+            onClick={searchSong}
           >
             <i className="bi bi-search btn-purple"></i>
           </button>
@@ -48,7 +66,7 @@ function SearchForm({ handleSpotifySearchClick }) {
           className="btn border-purple text-purple bg-blue"
           onClick={searchSongOnSpotify}
         >
-          Possibility
+          Search on Spotify
         </button>
       </div>
     </div>

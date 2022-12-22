@@ -1,12 +1,19 @@
 .songCard {
   border: 1px solid #851ff8;
   border-radius: 5px;
-  padding: 2em;
+  padding: 1.5em;
   margin-bottom: 1em;
 }
 
 .songCard img {
   max-width: 150px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1em;
 }
 
 .songsContainer {
@@ -33,4 +40,10 @@
   background-color: #851ff8;
   color: #edebfe;
   transition: 500ms;
+}
+
+.likeIcon {
+  color: #851ff8;
+  font-size: 1.5em;
+  margin-right: 0.5em;
 }

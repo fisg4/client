@@ -5,9 +5,11 @@ import "../css/Songs.css";
 
 function Songs() {
   const [songs, setSongs] = useState([]);
+  const [spotifySongs, setSpotifySongs] = useState(null);
 
   function handleSpotifySearchClick(results) {
     setSongs(results.songs);
+    setSpotifySongs(results.spotify);
   }
 
   return (
@@ -15,7 +17,7 @@ function Songs() {
       <SearchForm
         handleSpotifySearchClick={handleSpotifySearchClick}
       ></SearchForm>
-      <SongsContainer songs={songs}></SongsContainer>
+      <SongsContainer songs={songs} spotifySongs={spotifySongs}></SongsContainer>
     </div>
   );
 }

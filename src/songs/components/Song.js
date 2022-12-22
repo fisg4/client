@@ -1,11 +1,11 @@
-function Song({ song }) {
+function Song({ song, storable }) {
   return (
-    <div className="col-8 offset-2">
+    <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
       <div className="songCard d-flex justify-content-around align-items-center">
         <img
           src={song.albumCover}
           alt={`Album cover of ${song.title}`}
-          width="40%"
+          className="d-none d-md-block img-fluid"
         />
         <div className="d-flex flex-column justify-content-between cardContent">
           <h5 className="cardTitle">{song.title}</h5>
@@ -14,11 +14,21 @@ function Song({ song }) {
             <source src={song.url} type="audio/mpeg" />
           </audio>
         </div>
-        <div>
-          <div className="btnAddSong d-flex justify-content-center align-items-center">
-            <span>+</span>
+        {storable ? (
+          <div>
+            <div className="btnAddSong d-flex justify-content-center align-items-center">
+              <i class="bi bi-plus-lg"></i>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <a href={"/songs/" + song.id}>
+              <div className="btnAddSong d-flex justify-content-center align-items-center">
+                <i class="bi bi-music-note-beamed"></i>
+              </div>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

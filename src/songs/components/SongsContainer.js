@@ -1,11 +1,11 @@
 import Song from "./Song";
 
-function SongsContainer({ songs }) {
+function SongsContainer({ songs, spotifySongs }) {
   return (
     <div className="songsContainer">
       <div className="row">
         {songs.map((song) => (
-          <Song song={song}></Song>
+          <Song key={song.spotifyId} song={song} storable={spotifySongs} ></Song>
         ))}
       </div>
     </div>
