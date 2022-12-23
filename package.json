@@ -16,7 +16,6 @@
     "socket.io-client": "^4.5.4",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://apigateway-fastmusik-marmolpen3.cloud.okteto.net/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
