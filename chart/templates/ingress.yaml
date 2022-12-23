@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fastmusik
-  labels: { { - include "fastmusik.labels" . | nindent 4 } }
+  labels: {{ - include "fastmusik.labels" . | nindent 4 }}
   annotations:
     dev.okteto.com/generate-host: "true"
 spec:
