@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: frontend
   labels:
-    {{- include "client.labels" . | nindent 4 }}
+    {{- include "fastmusik.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
