@@ -13,6 +13,7 @@ function App() {
     <div className="min-vh-100 d-flex flex-column justify-content-between">
         <BrowserRouter>
           <Header />
+          <Users />
           <main className="container my-4">
             <Routes>
               <Route index element={<Home />} />
