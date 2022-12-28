@@ -1,9 +1,9 @@
 import './css/App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from './common/footer';
-import Header from './common/header';
-import Home from './common/home';
-import ErrorPage from './common/errorPage';
+import Footer from './common/Footer';
+import Header from './common/Header';
+import Home from './common/Home';
+import ErrorPage from './common/ErrorPage';
 import Songs from './songs/Songs';
 import Users from './users/Users';
 import Messages from './messages/Messages';

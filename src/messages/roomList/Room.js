@@ -7,7 +7,7 @@ export default function Room({ room }) {
         <div className='room-container'>
             <img className='room-avatar' src={room.img} alt='room-avatar' />
             <div className='room-name'>
-                {room.name}
+                <strong>{room.name}</strong>
             </div>
         </div>
     )

@@ -1,35 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import '../../css/messages/roomList/RoomList.css'
+import roomService from '../services/roomService';
 import Room from './Room';
+import Alert from '../../common/components/Alert';
 
 export default function RoomList() {
+  // TODO: Extract from localStorage
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MmIyNjQ5YjJlNzA0NjRmMTEzZDQwYyJ9.WlWiI1BFoHJ_B13Yte30ZAMfZvIf5hzMqBfTWBs22m0';
+  const [roomList, setRoomList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const [roomList, setRoomList] = useState([
-    {
-      id: 1,
-      img: 'https://source.unsplash.com/featured/300x201',
-      name: 'test'
-    },
-    {
-      id: 2,
-      img: 'https://source.unsplash.com/featured/300x202',
-      name: 'test 2'
-    },
-    {
-      id: 3,
-      img: 'https://source.unsplash.com/featured/300x203',
-      name: 'test 3'
-    },
-  ]);
+  useEffect(() => {
+    async function getRoomList() {
+      try {
+        const roomsResponse = await roomService.getRooms(token);
+        setRoomList(roomsResponse.content);
+      } catch (error) {
+        setErrorMessage("Error al obtener los chats del usuario");
+      }
+    }
+
+    getRoomList();
+  }, [roomList]);
 
   return (
     <div className='room-list-container'>
+      <Alert message={errorMessage} onClose={() => setErrorMessage(null)}/>
       {
         roomList && roomList.map((room) => {
           return (
-            <Link className='room-link' to={`${room.id}`} key={room.id}><Room room={room}/></Link>
+            <Link className='room-link' to={`${room._id}`} key={room._id}><Room room={room}/></Link>
           )
         })
       }
