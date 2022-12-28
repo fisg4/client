@@ -1,0 +1,33 @@
+.message-container {
+  position: relative;
+  width: fit-content;
+  max-width: 40%;
+  padding: 1em;
+  margin-top: 0.5em;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.message-participant {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.message-text {
+  font-size: 14px;
+}
+
+.mine {
+  margin-left: auto;
+}
+
+.message-time {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 10px;
+  color: gray;
+}
