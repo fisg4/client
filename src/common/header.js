@@ -13,7 +13,7 @@ function Header() {
               </Link>
             </div>
             <div className="col-2 text-end py-2">
-              <Link to="/">
+              <Link to="/login-page">
                 <img src={perfil} className="img-fluid align-middle header-perfil" alt="Perfil" />
               </Link>
             </div>

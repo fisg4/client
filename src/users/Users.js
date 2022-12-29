@@ -11,13 +11,22 @@ export default function Users(props) {
   useEffect(() => {
     // Check if user state variable is empty
     if (user == null) {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-        setIsLoggedIn(true);
+      const accessToken = localStorage.getItem('token');
+      if (accessToken) {
+        // make POST request to /api/v1/users/profile with token as authorization haeader
+        axios.post('/api/v1/users/profile', {}, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }).then(response => {
+          setUser(response.data);
+          setIsLoggedIn(true);
+        }).catch(error => {
+          console.log(error);
+        });
       }
     }
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,11 +34,13 @@ export default function Users(props) {
     const password = event.target.elements.password.value;
 
     try {
-      const response = await axios.post('/api/v1/users/login', {email, password});
+      const response = await axios.post('/api/auth', {email, password});
       setUser(response.data);
       setIsLoggedIn(true);
       setErrorMessage('');
-      localStorage.setItem('user', JSON.stringify(response.data));
+      //set jwt token to local storage
+      localStorage.setItem('token', response.data.accessToken);
+      // localStorage.setItem('user', JSON.stringify(response.data));
       console.log(response.data);
     } catch (error) {
       setErrorMessage('Invalid email or password');
@@ -51,42 +62,8 @@ export default function Users(props) {
   const handleSignOff = () => {
     setUser({}); // Clear user data
     setIsLoggedIn(false);
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
-
-  // return (
-  //   <div>
-  //     {isLoggedIn ? (
-  //       <>
-  //         <button onClick={handleClick}>Show User Info</button>
-  //         <button onClick={handleSignOff}>Sign off</button>
-  //       </>
-  //     ) : (
-  //       <form onSubmit={handleSubmit}>
-  //         <label>
-  //           Email:
-  //           <input type="text" name="email" />
-  //         </label>
-  //         <br />
-  //         <label>
-  //           Password:
-  //           <input type="password" name="password" />
-  //         </label>
-  //         <br />
-  //         <button type="submit">Log in</button>
-  //         {errorMessage && <div>{errorMessage}</div>}
-  //       </form>
-  //     )}
-  //     {isOpen && (
-  //       <div>
-  //         <div>User ID: {user.id}</div>
-  //         <div>Name: {user.username}</div>
-  //         <div>Email: {user.email}</div>
-  //         <button onClick={handleClose}>Close</button>
-  //       </div>
-  //     )}
-  //   </div>
-  // );
   
   return (
     <div>
