@@ -4,7 +4,7 @@ import SearchForm from "../songs/components/SearchForm";
 function Home() {
   return (
     <Fragment>
-      <SearchForm></SearchForm>
+      <SearchForm querySearch={""}></SearchForm>
     </Fragment>
   );
 }
