@@ -1,23 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import SongsContainer from "./components/SongsContainer";
 import "../css/Songs.css";
 
 function Songs() {
-  const [songs, setSongs] = useState([]);
-  const [spotifySongs, setSpotifySongs] = useState(null);
+  const location = useLocation();
+  const [songs, setSongs] = useState(location.state?.songs || []);
+  const [spotifySongs, setSpotifySongs] = useState(
+    location.state?.spotify || null
+  );
+  const [spotifyBtn, setSpotifyBtn] = useState(false);
+  const [emptyResults, setEmptyResults] = useState(false);
+  const [query, setQuery] = useState(location.state?.query || "");
 
-  function handleSpotifySearchClick(results) {
-    setSongs(results.songs);
-    setSpotifySongs(results.spotify);
-  }
+  useEffect(() => {
+    setSongs(location.state.songs);
+    setSpotifySongs(location.state.spotify);
+    setSpotifyBtn(true);
+    setEmptyResults(false);
+    setQuery(location.state.query);
+    if (location.state.songs.length === 0) {
+      setEmptyResults(true);
+    }
+  }, [songs, spotifyBtn, location]);
 
   return (
     <div>
-      <SearchForm
-        handleSpotifySearchClick={handleSpotifySearchClick}
-      ></SearchForm>
-      <SongsContainer songs={songs} spotifySongs={spotifySongs}></SongsContainer>
+      <SearchForm spotifyBtn={spotifyBtn} querySearch={query}></SearchForm>
+      <SongsContainer
+        songs={songs}
+        spotifySongs={spotifySongs}
+        emptyResults={emptyResults}
+      ></SongsContainer>
     </div>
   );
 }

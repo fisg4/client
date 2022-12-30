@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function SearchForm({ handleSpotifySearchClick }) {
-  const [query, setQuery] = useState("");
+function SearchForm({ spotifyBtn, querySearch }) {
+  const [query, setQuery] = useState(querySearch);
+  const navigate = useNavigate();
 
   async function searchSongOnSpotify() {
     const request = new Request("/api/v1/songs/spotify?title=" + query, {
@@ -17,7 +19,10 @@ function SearchForm({ handleSpotifySearchClick }) {
 
     const songs = await response.json();
 
-    handleSpotifySearchClick({songs, spotify: true});
+    navigate("/songs", {
+      state: { songs, spotify: true, query },
+      replace: true,
+    });
   }
 
   async function searchSong() {
@@ -32,9 +37,11 @@ function SearchForm({ handleSpotifySearchClick }) {
       throw Error("Response not valid. " + response.status);
     }
 
-    const songs = await response.json();
-
-    handleSpotifySearchClick({songs, spotify: false});
+    const songs = response.status === 200 ? await response.json() : [];
+    navigate("/songs", {
+      state: { songs, spotify: false, query },
+      replace: true,
+    });
   }
 
   return (
@@ -60,15 +67,17 @@ function SearchForm({ handleSpotifySearchClick }) {
           </button>
         </div>
       </div>
-      <div className="col-4 offset-4 text-center">
-        <button
-          type="button"
-          className="btn border-purple text-purple bg-blue"
-          onClick={searchSongOnSpotify}
-        >
-          Search on Spotify
-        </button>
-      </div>
+      {spotifyBtn && (
+        <div className="col-4 offset-4 text-center">
+          <button
+            type="button"
+            className="btn border-purple text-purple bg-blue"
+            onClick={searchSongOnSpotify}
+          >
+            Search on Spotify
+          </button>
+        </div>
+      )}
     </div>
   );
 }
