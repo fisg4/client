@@ -1,0 +1,28 @@
+.room-container {
+  width: 50vw;
+  padding: 2em;
+  margin: 2em 3em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  transition: 300ms all;
+}
+
+.room-container:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+.room-avatar {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .room-avatar {
+    width: 5vw;
+    height: 5vw;
+  }
+}

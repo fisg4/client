@@ -1,13 +1,12 @@
 import React from 'react'
-import ContactList from './components/ContactList';
-import ActiveChat from './components/ActiveChat';
-import '../css/Messages.css'
+
+import '../css/messages/Messages.css'
+import RoomList from './roomList/RoomList'
 
 export default function Messages() {
     return (
-        <div className="Chat">
-            <ContactList />
-            <ActiveChat />
+        <div className='messages-container'>
+            <RoomList />
         </div>
     );
 }
