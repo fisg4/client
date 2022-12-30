@@ -42,7 +42,7 @@ function SongDetail() {
           <h2 className="card-title">{song?.title}</h2>
           <p className="card-text">{song?.artists.join(", ")}</p>
           <audio controls>
-            <source src={song?.url} type="audio/mpeg" />
+            <source src={song?.audioUrl} type="audio/mpeg" />
           </audio>
           <div className="d-flex justify-content-between">
             <h3 className="card-title mt-3">Lyrics</h3>

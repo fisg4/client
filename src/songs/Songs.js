@@ -1,23 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import SongsContainer from "./components/SongsContainer";
 import "../css/Songs.css";
 
 function Songs() {
-  const [songs, setSongs] = useState([]);
-  const [spotifySongs, setSpotifySongs] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [songs, setSongs] = useState(location.state?.songs || []);
+  const [spotifySongs, setSpotifySongs] = useState(
+    location.state?.spotify || null
+  );
 
-  function handleSpotifySearchClick(results) {
-    setSongs(results.songs);
-    setSpotifySongs(results.spotify);
-  }
+  useEffect(() => {
+    if (songs.length === 0) {
+      navigate("/");
+    } else {
+      setSongs(location.state.songs);
+      setSpotifySongs(location.state.spotify);
+    }
+  }, [songs, navigate, location]);
 
   return (
     <div>
-      <SearchForm
-        handleSpotifySearchClick={handleSpotifySearchClick}
-      ></SearchForm>
-      <SongsContainer songs={songs} spotifySongs={spotifySongs}></SongsContainer>
+      <SearchForm></SearchForm>
+      <SongsContainer
+        songs={songs}
+        spotifySongs={spotifySongs}
+      ></SongsContainer>
     </div>
   );
 }

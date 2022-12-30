@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function SearchForm({ handleSpotifySearchClick }) {
+function SearchForm() {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   async function searchSongOnSpotify() {
     const request = new Request("/api/v1/songs/spotify?title=" + query, {
@@ -17,7 +19,7 @@ function SearchForm({ handleSpotifySearchClick }) {
 
     const songs = await response.json();
 
-    handleSpotifySearchClick({songs, spotify: true});
+    navigate("/songs", { state: { songs, spotify: true }, replace: true });
   }
 
   async function searchSong() {
@@ -32,9 +34,8 @@ function SearchForm({ handleSpotifySearchClick }) {
       throw Error("Response not valid. " + response.status);
     }
 
-    const songs = await response.json();
-
-    handleSpotifySearchClick({songs, spotify: false});
+    const songs = response.status === 200 ? await response.json() : [];
+    navigate("/songs", { state: { songs, spotify: false }, replace: true });
   }
 
   return (
