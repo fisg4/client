@@ -8,7 +8,7 @@ import Songs from './songs/Songs';
 import Users from './users/Users';
 import Messages from './messages/Messages';
 import ActiveChat from './messages/activeChat/ActiveChat';
-
+import LikeButton from './users/components/LikeButton';
 
 function App() {
   return (
@@ -26,6 +26,10 @@ function App() {
             </Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>
+          <br />
+          <div className="col-4 offset-4 text-center">
+            <LikeButton />
+          </div>
         </main>
         <Footer />
       </BrowserRouter>
