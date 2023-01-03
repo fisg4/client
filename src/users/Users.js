@@ -28,7 +28,8 @@ export default function Users(props) {
           }
         });
         const user = await response.json();
-        console.log("user: " + user.username);
+        // store in local storage
+        localStorage.setItem('user', JSON.stringify(user));
         setUser(user);
         setIsLoggedIn(true);
       }
@@ -76,6 +77,9 @@ export default function Users(props) {
     setUser(null); // Clear user data
     setIsLoggedIn(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // reload page
+    window.location.reload();
   }
   
   return (
