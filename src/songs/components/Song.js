@@ -11,7 +11,7 @@ function Song({ song, storable }) {
           <h5 className="cardTitle">{song.title}</h5>
           <p className="cardText">{song.artists.join(", ")}</p>
           <audio controls>
-            <source src={song.url} type="audio/mpeg" />
+            <source src={song.audioUrl} type="audio/mpeg" />
           </audio>
         </div>
         {storable ? (
