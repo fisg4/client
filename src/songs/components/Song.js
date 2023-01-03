@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Song({ song, storable }) {
   return (
     <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -17,16 +19,16 @@ function Song({ song, storable }) {
         {storable ? (
           <div>
             <div className="btnAddSong d-flex justify-content-center align-items-center">
-              <i class="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             </div>
           </div>
         ) : (
           <div>
-            <a href={"/songs/" + song.id}>
+            <Link to={`/songs/${song.id}`}>
               <div className="btnAddSong d-flex justify-content-center align-items-center">
-                <i class="bi bi-music-note-beamed"></i>
+                <i className="bi bi-music-note-beamed"></i>
               </div>
-            </a>
+            </Link>
           </div>
         )}
       </div>

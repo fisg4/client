@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSongs, toggleSpotify, saveQuery } from "../slices/songsSlice";
 
-function SearchForm({ spotifyBtn, querySearch }) {
-  const [query, setQuery] = useState(querySearch);
+function SearchForm({ spotifyBtn = false, querySearch }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [query, setQuery] = useState(querySearch);
 
-  async function searchSongOnSpotify() {
-    const request = new Request("/api/v1/songs/spotify?title=" + query, {
+  async function searchSongs(endpoint, spotify) {
+    let songs = [];
+    const request = new Request(`${endpoint}${query}`, {
       method: "GET",
       headers: {},
     });
@@ -17,31 +21,17 @@ function SearchForm({ spotifyBtn, querySearch }) {
       throw Error("Response not valid. " + response.status);
     }
 
-    const songs = await response.json();
-
-    navigate("/songs", {
-      state: { songs, spotify: true, query },
-      replace: true,
-    });
-  }
-
-  async function searchSong() {
-    const request = new Request("/api/v1/songs?title=" + query, {
-      method: "GET",
-      headers: {},
-    });
-
-    const response = await fetch(request);
-
-    if (!response.ok) {
-      throw Error("Response not valid. " + response.status);
+    if (spotify) {
+      songs = await response.json();
+      dispatch(toggleSpotify(true));
+    } else {
+      songs = response.status === 200 ? await response.json() : [];
+      dispatch(toggleSpotify(false));
     }
+    dispatch(setSongs(songs));
+    dispatch(saveQuery(query));
 
-    const songs = response.status === 200 ? await response.json() : [];
-    navigate("/songs", {
-      state: { songs, spotify: false, query },
-      replace: true,
-    });
+    navigate("/songs");
   }
 
   return (
@@ -61,7 +51,7 @@ function SearchForm({ spotifyBtn, querySearch }) {
             className="btn border-purple text-purple"
             type="button"
             id="button-addon2"
-            onClick={searchSong}
+            onClick={() => searchSongs("/api/v1/songs?title=", false)}
           >
             <i className="bi bi-search btn-purple"></i>
           </button>
@@ -72,7 +62,7 @@ function SearchForm({ spotifyBtn, querySearch }) {
           <button
             type="button"
             className="btn border-purple text-purple bg-blue"
-            onClick={searchSongOnSpotify}
+            onClick={() => searchSongs("/api/v1/songs/spotify?title=", true)}
           >
             Search on Spotify
           </button>
