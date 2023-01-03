@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Card, CardBody, Button, Form, FormGroup, Input, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 export default function Users(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,35 +11,49 @@ export default function Users(props) {
     // Check if user state variable is empty
     if (user == null) {
       const accessToken = localStorage.getItem('token');
-      if (accessToken) {
-        // make POST request to /api/v1/users/profile with token as authorization haeader
-        axios.post('/api/v1/users/profile', {}, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }).then(response => {
-          setUser(response.data);
-          setIsLoggedIn(true);
-        }).catch(error => {
-          console.log(error);
-        });
+      if (accessToken){
+        setProfile();
       }
     }
   }, [user]);
+
+  const setProfile = async () => {
+    if (user == null) {
+      const accessToken = localStorage.getItem('token');
+      if (accessToken) {
+        const response = await fetch('/api/v1/users/profile', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        const user = await response.json();
+        console.log("user: " + user.username);
+        setUser(user);
+        setIsLoggedIn(true);
+      }
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
-
     try {
-      const response = await axios.post('/api/auth', {email, password});
-      setUser(response.data);
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email, password})
+      });
+      const data = await response.json();
+      localStorage.setItem('token', data.accessToken);
+      setProfile();
       setIsLoggedIn(true);
       setErrorMessage('');
-      //set jwt token to local storage
-      localStorage.setItem('token', response.data.accessToken);
-      // localStorage.setItem('user', JSON.stringify(response.data));
+      // reload page
+      window.location.reload();
       console.log(response.data);
     } catch (error) {
       setErrorMessage('Invalid email or password');
@@ -60,7 +73,7 @@ export default function Users(props) {
   }
 
   const handleSignOff = () => {
-    setUser({}); // Clear user data
+    setUser(null); // Clear user data
     setIsLoggedIn(false);
     localStorage.removeItem('token');
   }
@@ -69,8 +82,17 @@ export default function Users(props) {
     <div>
       {isLoggedIn ? (
         <>
-          <Button onClick={handleClick}>Show User Info</Button>
-          <Button onClick={handleSignOff}>Sign off</Button>
+        <div class="text-center">
+          <Card className="mx-auto" style={{ width: '20rem' }}>
+            <CardBody>
+              <CardTitle>Usuario: {user.username}</CardTitle>
+              <CardSubtitle>Email: {user.email}</CardSubtitle>
+            </CardBody>
+          </Card>
+          <div class="mt-2">
+            <Button onClick={handleSignOff}>Sign off</Button>
+          </div>
+        </div>
         </>
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
