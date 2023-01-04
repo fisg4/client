@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+// NOT USED
 function LikeButton() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

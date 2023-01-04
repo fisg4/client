@@ -1,4 +1,4 @@
-// component for displaying a single user info (username, email, role and plan) in react
+// NOT USED
 function User(user) {
     return (
         <div className="card">

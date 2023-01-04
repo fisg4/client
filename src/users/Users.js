@@ -48,24 +48,21 @@ export default function Users(props) {
         },
         body: JSON.stringify({email, password})
       });
-      const data = await response.json();
-      localStorage.setItem('token', data.accessToken);
-      setProfile();
-      setIsLoggedIn(true);
-      setErrorMessage('');
-      // reload page
-      window.location.reload();
-      console.log(response.data);
+      // if the response is not ok setErrorMessage
+      if (!response.ok) {
+        setErrorMessage('Invalid email or password');
+      }else{
+        const data = await response.json();
+        localStorage.setItem('token', data.accessToken);
+        setProfile();
+        setIsLoggedIn(true);
+        setErrorMessage('');
+        // reload page
+        window.location.reload();
+        console.log(response.data);
+      }
     } catch (error) {
       setErrorMessage('Invalid email or password');
-    }
-  }
-
-  const handleClick = () => {
-    if (isLoggedIn) {
-      setIsOpen(true);
-    } else {
-      // Show login screen
     }
   }
 
@@ -109,9 +106,10 @@ export default function Users(props) {
                 <Input type="password" name="password" placeholder="Password" />
               </FormGroup>
               <Button className="text-center" type="submit">Log in</Button>
-              {errorMessage && <div>{errorMessage}</div>}
+              {errorMessage && <div class="text-center mt-3 text-danger">{errorMessage}</div>}
             </Form>
           </CardBody>
+          <div class="text-center mb-3">(Don't have an account yet? <a href="/register">Click here</a>)</div>
         </Card>
       )}
       <Modal isOpen={isOpen} toggle={handleClose}>

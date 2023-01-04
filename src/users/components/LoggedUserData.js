@@ -1,5 +1,5 @@
 import React from 'react';
-
+// NOT USED
 const LoggedUserData = ({ username, email, role, plan }) => (
   <div className="logged-user-data">
     <div>Username: {username}</div>
