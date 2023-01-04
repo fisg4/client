@@ -20,7 +20,7 @@ function App() {
             <Routes>
               <Route index element={<Home />} />
               <Route path="/songs" element={<Songs />} />
-              <Route exact path="/login-page" element={<Users />} />
+              <Route exact path="/login" element={<Users />} />
               <Route path="/songs/:id" element={<SongDetail />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="*" element={<ErrorPage />} />
