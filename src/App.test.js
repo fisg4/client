@@ -1,9 +1,11 @@
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
+import { unmountComponentAtNode } from "react-dom";
+import { renderWithProviders } from "./utils/test-utils";
 import App from "./App";
 
 test("renders without crashing", () => {
   const div = document.createElement("div");
-  render(<App />, div);
+  const { unmount } = renderWithProviders(<App />, { div });
+  unmount();
   unmountComponentAtNode(div);
 });
