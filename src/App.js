@@ -8,7 +8,7 @@ import Songs from "./songs/Songs";
 import Users from "./users/Users";
 import Messages from "./messages/Messages";
 import SongDetail from "./songs/components/SongDetail";
-import LikeButton from './users/components/LikeButton';
+import RegisterForm from "./users/RegisterForm";
 
 function App() {
   return (
@@ -20,16 +20,13 @@ function App() {
             <Routes>
               <Route index element={<Home />} />
               <Route path="/songs" element={<Songs />} />
+              <Route exact path="/login" element={<Users />} />
+              <Route exact path="/register" element={<RegisterForm />} />
               <Route path="/songs/:id" element={<SongDetail />} />
-              <Route path="/users" element={<Users />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
             <br />
-            <div className="col-4 offset-4 text-center">
-              <LikeButton />
-            </div>
-
           </main>
         </div>
         <Footer />

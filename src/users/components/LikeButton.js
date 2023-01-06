@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
+// NOT USED
 function LikeButton() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   async function handleClick() {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await axios.post('https://example.com/api/endpoint', {
-        data: 'some data to send in the request body'
-      });
-      console.log(response.data);
-      setLoading(false);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   setError(null);
+    //   const response = await axios.post('https://example.com/api/endpoint', {
+    //     data: 'some data to send in the request body'
+    //   });
+    //   console.log(response.data);
+    //   setLoading(false);
+    // } catch (error) {
+    //   setError(error);
+    //   setLoading(false);
+    // }
   }
 
   return (
