@@ -1,23 +1,22 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import SearchForm from "./components/SearchForm";
 import SongsContainer from "./components/SongsContainer";
+
 import "../css/Songs.css";
 
 function Songs() {
-  const [songs, setSongs] = useState([]);
-  const [spotifySongs, setSpotifySongs] = useState(null);
-
-  function handleSpotifySearchClick(results) {
-    setSongs(results.songs);
-    setSpotifySongs(results.spotify);
-  }
+  const { songs } = useSelector((state) => state.songs);
+  const { spotify } = useSelector((state) => state.songs);
+  const { query } = useSelector((state) => state.songs);
 
   return (
     <div>
-      <SearchForm
-        handleSpotifySearchClick={handleSpotifySearchClick}
-      ></SearchForm>
-      <SongsContainer songs={songs} spotifySongs={spotifySongs}></SongsContainer>
+      <SearchForm spotifyBtn={true} querySearch={query}></SearchForm>
+      <SongsContainer
+        songs={songs}
+        spotifySongs={spotify}
+        emptyResults={songs.length === 0 ? true : false}
+      ></SongsContainer>
     </div>
   );
 }
