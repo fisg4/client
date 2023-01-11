@@ -5,7 +5,7 @@ import '../../css/messages/activeChat/ActiveChat.css'
 import ActiveChatHeader from './ActiveChatHeader'
 import ActiveChatBody from './ActiveChatBody'
 import ActiveChatFooter from './ActiveChatFooter'
-import roomService from '../services/roomService';
+import { getRoom, getRoomMessages } from '../services/roomService';
 import Alert from '../../common/components/Alert';
 
 export default function ActiveChat() {
@@ -17,10 +17,10 @@ export default function ActiveChat() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    async function getRoom() {
+    async function getRoomDetails() {
       try {
-        const roomsResponse = await roomService.getRoom(token, id);
-        const messagesResponse = await roomService.getRoomMessages(token, id);
+        const roomsResponse = await getRoom(token, id);
+        const messagesResponse = await getRoomMessages(token, id);
         setRoom(roomsResponse.content);
         setMessages(messagesResponse.content);
       } catch (error) {
@@ -28,7 +28,7 @@ export default function ActiveChat() {
       }
     }
 
-    getRoom();
+    getRoomDetails();
   }, []);
 
   if (errorMessage != null) {

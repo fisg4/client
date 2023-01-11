@@ -5,7 +5,7 @@ import Paginator from './roomList/Paginator';
 import RoomList from './roomList/RoomList'
 import { setRooms, setPagination } from './slices/roomsSlice'
 
-import roomService from './services/roomService';
+import { getRooms } from './services/roomService';
 
 export default function Messages() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function Messages() {
 
   useEffect(() => {
     async function getRoomList() {
-        const roomsResponse = await roomService.getRooms(token, currentPage, 5);
+        const roomsResponse = await getRooms(token, currentPage, 5);
         if (roomsResponse.success) {
           const { content, totalElements, totalPages } = roomsResponse;
           const currentPage = parseInt(roomsResponse.currentPage);
