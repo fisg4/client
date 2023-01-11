@@ -10,7 +10,6 @@ import Messages from './messages/Messages';
 import SongDetail from "./songs/components/SongDetail";
 import RegisterForm from "./users/RegisterForm";
 import ActiveChat from './messages/activeChat/ActiveChat';
-import LikeButton from './users/components/LikeButton';
 
 function App() {
   return (
@@ -32,9 +31,6 @@ function App() {
               <Route path="*" element={<ErrorPage />} />
             </Routes>
             <br />
-            <div className="col-4 offset-4 text-center">
-              <LikeButton />
-            </div>
           </main>
         </div>
         <Footer />
