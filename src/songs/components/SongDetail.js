@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import LikeButton from "./LikeButton";
 
 function SongDetail() {
   const { id } = useParams();
@@ -33,10 +34,7 @@ function SongDetail() {
           <img src={song?.albumCover} className="card-img-top" alt="..." />
           <div className="d-flex justify-content-between">
             <p>
-              <span className="likeIcon">
-                <i class="bi bi-heart-fill"></i>
-              </span>
-              3439 likes
+              <LikeButton id={id} />
             </p>
           </div>
           <h2 className="card-title">{song?.title}</h2>
