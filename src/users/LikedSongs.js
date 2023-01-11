@@ -22,9 +22,9 @@ function LikedSongs() {
       .catch(err => setError(err));
   }, []);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
 
   if (!songs || !songs.length) {
     return <div>No songs liked yet</div>;
