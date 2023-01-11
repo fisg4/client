@@ -30,7 +30,7 @@ function SongDetail() {
     <div className="row">
       <div className="col-8 offset-2">
         <div className="d-flex flex-column">
-          <img src={song?.albumCover} class="card-img-top" alt="..." />
+          <img src={song?.albumCover} className="card-img-top" alt="..." />
           <div className="d-flex justify-content-between">
             <p>
               <span className="likeIcon">
