@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import LikedSongs from './LikedSongs';
 
 export default function Users(props) {
-  const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Update initial value to an empty object
   const [errorMessage, setErrorMessage] = useState('');
@@ -12,6 +12,7 @@ export default function Users(props) {
     if (user == null) {
       const accessToken = localStorage.getItem('token');
       if (accessToken){
+        console.log('accessToken', accessToken);
         setProfile();
       }
     }
@@ -66,10 +67,6 @@ export default function Users(props) {
     }
   }
 
-  const handleClose = () => {
-    setIsOpen(false);
-  }
-
   const handleSignOff = () => {
     setUser(null); // Clear user data
     setIsLoggedIn(false);
@@ -94,6 +91,10 @@ export default function Users(props) {
             <Button onClick={handleSignOff}>Sign off</Button>
           </div>
         </div>
+        <div class="row mb-3 w-75 mx-auto">
+          <h5>Liked songs <i className="bi bi-heart-fill heart-filled" />:</h5>
+        </div>
+        <LikedSongs />
         </>
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
@@ -112,14 +113,6 @@ export default function Users(props) {
           <div class="text-center mb-3">(Don't have an account yet? <a href="/register">Click here</a>)</div>
         </Card>
       )}
-      <Modal isOpen={isOpen} toggle={handleClose}>
-        <ModalHeader toggle={handleClose}>User Info</ModalHeader>
-        <ModalBody>
-          {user && <div>User ID: {user.id}</div>}
-          {user && <div>Username: {user.username}</div>}
-          {user && <div>Email: {user.email}</div>}
-        </ModalBody>
-      </Modal>
     </div>
   );
 }  
