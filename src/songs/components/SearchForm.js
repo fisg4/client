@@ -51,6 +51,7 @@ function SearchForm({ spotifyBtn = false, querySearch }) {
             className="btn border-purple text-purple"
             type="button"
             id="button-addon2"
+            title="Search"
             onClick={() => searchSongs("/api/v1/songs?title=", false)}
           >
             <i className="bi bi-search btn-purple"></i>
