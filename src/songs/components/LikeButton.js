@@ -4,6 +4,7 @@ import './LikeButton.css';
 const LikeButton = ({ id }) => {
   const [liked, setLiked] = useState(false);
   const [likeId, setLikeId] = useState(null);
+  const [showButton, setShowButton] = useState(false);
   const URL_BASE = window.location.origin;
 
   useEffect(() => {
@@ -40,6 +41,13 @@ const LikeButton = ({ id }) => {
     }
   }, [liked]); // The empty array ensures that this effect only runs on mount
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setShowButton(true);
+    }
+  }, []);
+  
   const handleClick = () => {
     if (liked) {
       // Make DELETE request to "api/v1/user/likes"
@@ -98,6 +106,7 @@ const LikeButton = ({ id }) => {
   };
   
   return (
+    showButton &&
     <span className="likeIcon" onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {liked ? (
         <i className="bi bi-heart-fill heart-filled" />
