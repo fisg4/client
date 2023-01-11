@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Song from '../songs/components/Song';
+import SimpleSong from './SimpleSong';
 
 function LikedSongs() {
   const [songs, setSongs] = useState([]);
@@ -30,12 +30,18 @@ function LikedSongs() {
     return <div>No songs liked yet</div>;
   }else{
       return (
-        <div>
-          {songs.map(song => (
-            <Song key={song.Id} song={song} />
-          ))}
+        <div className='justify-content-center mx-auto text-center'>
+            <ul className='list-group d-flex flex-row flex-wrap'>
+              {songs.map(song => (
+                <div className='col-12 col-md-4 text-center d-flex p-2'>
+                <SimpleSong key={song.Id} song={song} />
+                </div>
+              ))}
+            </ul>
         </div>
       );
+      // make a return of the songs but with a grid
+
   }
 
 }
