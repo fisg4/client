@@ -75,8 +75,6 @@ export default function Users(props) {
 
   const showForm = () => {
     setShowUpdateForm(!showUpdateForm);
-    setEmail(user.email);
-    setUsername(user.username);
   }
 
   const handleSignOff = () => {
@@ -153,7 +151,7 @@ export default function Users(props) {
               type="email"
               name="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Enter your new email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -164,7 +162,7 @@ export default function Users(props) {
               type="text"
               name="username"
               id="username"
-              placeholder="Enter your username"
+              placeholder="Enter your new username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
@@ -175,7 +173,7 @@ export default function Users(props) {
               type="password"
               name="password"
               id="password"
-              placeholder="Enter your password"
+              placeholder="Enter your new password (optional)"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -186,7 +184,7 @@ export default function Users(props) {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              placeholder="Confirm your password"
+              placeholder="Confirm your new password (optional)"
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
             />
