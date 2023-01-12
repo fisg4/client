@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import LikedSongs from './LikedSongs';
 import DeleteButton from './components/DeleteButton';
 
@@ -7,7 +7,13 @@ export default function Users(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Update initial value to an empty object
   const [errorMessage, setErrorMessage] = useState('');
-  
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [updateErrorMessage, setUpdateErrorMessage] = useState('');
+
   useEffect(() => {
     // Check if user state variable is empty
     if (user == null) {
@@ -68,6 +74,12 @@ export default function Users(props) {
     }
   }
 
+  const showForm = () => {
+    setShowUpdateForm(!showUpdateForm);
+    setEmail(user.email);
+    setUsername(user.username);
+  }
+
   const handleSignOff = () => {
     setUser(null); // Clear user data
     setIsLoggedIn(false);
@@ -77,6 +89,38 @@ export default function Users(props) {
     window.location.reload();
   }
   
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+    const accessToken = localStorage.getItem('token');
+    if (accessToken) {
+      fetch('/api/v1/users/me', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({email, username, password})
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            setUpdateErrorMessage(data.message);
+          } else {
+            setUpdateErrorMessage('');
+            setEmail('');
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
+            window.location.reload();
+          }
+        });
+    }
+  }
   return (
     <div>
       {isLoggedIn ? (
@@ -89,9 +133,72 @@ export default function Users(props) {
             </CardBody>
           </Card>
           <div class="mt-2">
+            <Button onClick={showForm}>Update data</Button> &nbsp; &nbsp; &nbsp;
             <Button onClick={handleSignOff}>Sign off</Button>
-
           </div>
+          {showUpdateForm ? (
+            <div class="mt-2">
+
+
+
+
+              <Card className='d-flex justify-content-center w-50 mx-auto'>
+                <CardBody>
+                  <CardTitle className='display-4 text-center'>Edit your info</CardTitle>
+        {errorMessage && <p class='text-center text-danger'>{errorMessage}</p>}
+        <Form onSubmit={handleUpdate}>
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="username">Username</Label>
+            <Input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="password">Password</Label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="confirmPassword">Confirm Password</Label>
+            <Input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+            />
+          </FormGroup>
+          <Button type="submit" color="primary">
+            Edit
+          </Button>
+        </Form>
+      </CardBody>
+    </Card>
+            </div>
+          ) : null}
         </div>
         <div class="row mb-3 w-75 mx-auto">
           <h5>Liked songs <i className="bi bi-heart-fill heart-filled" />:</h5>
@@ -99,7 +206,7 @@ export default function Users(props) {
         <LikedSongs />
         <div class="mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
         <DeleteButton></DeleteButton>
-
+            
           </div>
         
 
