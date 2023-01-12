@@ -1,43 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router';
-
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router';
+//Files
 import '../../css/messages/activeChat/ActiveChat.css'
 import ActiveChatHeader from './ActiveChatHeader'
 import ActiveChatBody from './ActiveChatBody'
 import ActiveChatFooter from './ActiveChatFooter'
-import roomService from '../services/roomService';
-import Alert from '../../common/components/Alert';
 
 export default function ActiveChat() {
-  const { id } = useParams();
-  // TODO: Extract from localStorage
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MmIyNjQ5YjJlNzA0NjRmMTEzZDQwYyJ9.WlWiI1BFoHJ_B13Yte30ZAMfZvIf5hzMqBfTWBs22m0';
-  const [room, setRoom] = useState({});
-  const [messages, setMessages] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    async function getRoomDetails() {
-      try {
-        const roomsResponse = await roomService.getRoom(token, id);
-        const messagesResponse = await roomService.getRoomMessages(token, id);
-        setRoom(roomsResponse.content);
-        setMessages(messagesResponse.content);
-      } catch (error) {
-        setErrorMessage("Error al obtener la información del chat");
-      }
-    }
+  const navigate = useNavigate();
 
-    getRoomDetails();
-  }, []);
+  const { state } = useLocation();
+  const { currentRoom, messages } = state || {};
 
-  if (errorMessage != null) {
-    return (<Alert message={errorMessage}/>);
+  const sendParticipants = async () => {
+    let participants = currentRoom.participants;
+    navigate("participants", { state: { participants: participants } });
   }
 
   return (
     <div className='active-chat-container'>
-      <ActiveChatHeader room={room}></ActiveChatHeader>
+      <div onClick={sendParticipants} className='active-chat-header-outer-container'>
+        <ActiveChatHeader></ActiveChatHeader>
+      </div>
       <ActiveChatBody messages={messages}></ActiveChatBody>
       <ActiveChatFooter></ActiveChatFooter>
     </div>

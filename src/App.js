@@ -7,9 +7,10 @@ import ErrorPage from './common/ErrorPage';
 import Songs from './songs/Songs';
 import Users from './users/Users';
 import Messages from './messages/Messages';
+import ActiveChat from './messages/activeChat/ActiveChat';
+import Participants from './messages/activeChat/Participants';
 import SongDetail from "./songs/components/SongDetail";
 import RegisterForm from "./users/RegisterForm";
-import ActiveChat from './messages/activeChat/ActiveChat';
 import LikeButton from './users/components/LikeButton';
 
 function App() {
@@ -25,10 +26,9 @@ function App() {
               <Route exact path="/login" element={<Users />} />
               <Route exact path="/register" element={<RegisterForm />} />
               <Route path="/songs/:id" element={<SongDetail />} />
-              <Route path='/messages'>
-                <Route index element={<Messages />} />
-                <Route path=':id' element={<ActiveChat />} />
-              </Route>
+              <Route path='/messages' element={<Messages />}/>
+              <Route path='/messages/:id' element={<ActiveChat />}/>
+              <Route path='/messages/:id/participants' element={<Participants />}/>
               <Route path="*" element={<ErrorPage />} />
             </Routes>
             <br />

@@ -5,10 +5,57 @@
   padding: 1em;
   margin-top: 0.5em;
   border-radius: 3px;
-  background-color: #f0f0f0;
+  background: linear-gradient(to top left, #851ff8, #786cf7);
+  color: #fff;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
+}
+
+.message-actions {
+  position: absolute;
+  top: 0;
+  transform: translateY(50%);
+  transform: translateX(100%);
+  border-radius: 5px;
+  background-color: #784fff;
+  padding: 1em;
+  z-index: 1;
+}
+
+.my-actions {
+  left: 0 I !important;
+  transform: translateX(-115%);
+}
+
+.message-action {
+  width: 10vw;
+  font-size: 12px;
+  transition: 300ms all;
+  padding: .5em;
+}
+
+.message-action:hover {
+  cursor: pointer;
+  background-color: #786fff;
+}
+
+.toggle-message-actions-mine {
+  left: 0 !important;
+}
+
+.toggle-message-actions {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+  padding: .2em;
+  border-radius: 50%;
+  transition: 300ms all;
+}
+
+.toggle-message-actions:hover {
+  cursor: pointer;
+  background-color: #786fff;
 }
 
 .message-participant {
@@ -29,5 +76,5 @@
   bottom: 2px;
   right: 2px;
   font-size: 10px;
-  color: gray;
+  color: #fff;
 }
