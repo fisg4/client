@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLyrics, setInput } from "../slices/lyricsSlice";
+import { setAudioUrl, setVideoUrl } from "../slices/songMediaSlice";
 import LikeButton from "./LikeButton";
 import SongLyrics from "./SongLyrics";
 import SongAudio from "./SongAudio";
@@ -12,6 +13,7 @@ function SongDetail() {
   const [song, setSong] = useState(null);
   const dispatch = useDispatch();
   const text = useSelector((state) => state.lyrics);
+  const media = useSelector((state) => state.songMedia);
 
   useEffect(() => {
     async function fetchSong() {
@@ -27,10 +29,13 @@ function SongDetail() {
       }
 
       const song = await response.json();
-
       setSong(song);
+
       dispatch(setLyrics(song.lyrics || ""));
       dispatch(setInput(song.lyrics || ""));
+
+      dispatch(setAudioUrl(song.audioUrl || ""));
+      dispatch(setVideoUrl(song.videoUrl || ""));
     }
 
     fetchSong();
@@ -48,7 +53,7 @@ function SongDetail() {
           </div>
           <h2 className="card-title">{song?.title}</h2>
           <p className="card-text">{song?.artists.join(", ")}</p>
-          <SongAudio audioUrl={song.audioUrl} />
+          <SongAudio />
           <SongLyrics song={song} text={text} />
         </div>
       </div>
