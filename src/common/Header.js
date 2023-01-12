@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import logo from '../images/fastMusik_logo.svg';
 import perfil from '../images/user-icon.png';
 import { Link, Outlet } from 'react-router-dom';

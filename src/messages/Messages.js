@@ -18,31 +18,36 @@ export default function Messages() {
 
   useEffect(() => {
     async function getRoomList() {
-        const roomsResponse = await roomService.getRooms(token, currentPage, 5);
-        if (roomsResponse.success) {
-          const { content, totalElements, totalPages } = roomsResponse;
-          const currentPage = parseInt(roomsResponse.currentPage);
-          dispatch(setRooms(content))
-          dispatch(setPagination({ currentPage, totalElements, totalPages }))
-        }
+      const response = await roomService.getRooms(token, currentPage, 3);
+      if (response.success) {
+        const { content, totalElements, totalPages } = response;
+        const currentPage = parseInt(response.currentPage);
+        dispatch(setRooms(content))
+        dispatch(setPagination({ currentPage, totalElements, totalPages }))
+      }
     }
 
     getRoomList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const handleChangePage = (newPage) => {
     dispatch(setPagination({ ...pagination, currentPage: newPage }))
   }
 
-    return (
-        <div className='messages-container'>
-            <Paginator
-              currentPage={currentPage}
-              totalElements={totalElements}
-              totalPages={totalPages}
-              handleChangePage={handleChangePage}
-            />
-            <RoomList rooms={rooms}/>
-        </div>
-    );
+  if (rooms.length <= 0) {
+    return <h4 className='text-center'>No se han encontrado salas</h4>
+  }
+
+  return (
+      <div className='messages-container'>
+          <Paginator
+            currentPage={currentPage}
+            totalElements={totalElements}
+            totalPages={totalPages}
+            handleChangePage={handleChangePage}
+          />
+          <RoomList rooms={rooms}/>
+      </div>
+  );
 }
