@@ -22,7 +22,7 @@ export default function ActiveChat() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    async function getRoomDetails() {
+    async function getRoom() {
       try {
         const roomsResponse = await roomService.getRoom(token, id);
         const messagesResponse = await roomService.getRoomMessages(token, id);
@@ -38,7 +38,7 @@ export default function ActiveChat() {
       return
     }
 
-    getRoomDetails();
+    getRoom();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

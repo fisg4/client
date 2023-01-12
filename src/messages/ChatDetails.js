@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { setRoom } from './slices/roomsSlice'
 import roomService from './services/roomService'
 
-export default function RoomDetails () {
+export default function ChatDetails () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();

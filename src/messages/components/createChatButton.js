@@ -1,9 +1,9 @@
 import roomService from '../services/roomService'
 
-import '../../css/messages/components/createRoomButton.css'
+import '../../css/messages/components/createChatButton.css'
 import { useNavigate } from 'react-router-dom';
 
-export default function CreateRoomButton ({ song, participantId }) {
+export default function CreateChatButton ({ song, participantId }) {
   const navigate = useNavigate()
   
   const token = localStorage.getItem('token')
@@ -30,7 +30,7 @@ export default function CreateRoomButton ({ song, participantId }) {
   }
 
   return (
-    <button className='create-room-button' onClick={() => handleCreate()}>
+    <button className='create-chat-button' onClick={() => handleCreate()}>
       <span>💬</span>
     </button>
   )

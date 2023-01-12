@@ -1,4 +1,4 @@
-.create-room-button {
+.create-chat-button {
     border: 1.5px solid #851ff8;
     background-color: #edebfe;
     padding: 0.5em;
@@ -11,7 +11,7 @@
     justify-content: center;
 }
 
-.create-room-button:hover {
+.create-chat-button:hover {
     background-color: #851ff8;
     color: #edebfe;
     transition: 500ms;

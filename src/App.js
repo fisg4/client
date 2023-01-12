@@ -10,7 +10,7 @@ import Chats from './messages/Chats';
 import SongDetail from "./songs/components/SongDetail";
 import RegisterForm from "./users/RegisterForm";
 import ActiveChat from './messages/ActiveChat';
-import RoomDetails from "./messages/RoomDetails";
+import ChatDetails from "./messages/ChatDetails";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
                 <Route index element={<Chats />} />
                 <Route path=':id'>
                   <Route index element={<ActiveChat />} />
-                  <Route path='details' element={<RoomDetails />} />
+                  <Route path='details' element={<ChatDetails />} />
                 </Route>
               </Route>
               <Route path="*" element={<ErrorPage />} />
