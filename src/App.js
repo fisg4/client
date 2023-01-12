@@ -6,11 +6,11 @@ import Home from './common/Home';
 import ErrorPage from './common/ErrorPage';
 import Songs from './songs/Songs';
 import Users from './users/Users';
-import Messages from './messages/Messages';
+import Chats from './messages/Chats';
 import SongDetail from "./songs/components/SongDetail";
 import RegisterForm from "./users/RegisterForm";
-import ActiveChat from './messages/activeChat/ActiveChat';
-import RoomDetails from "./messages/roomDetails/RoomDetails";
+import ActiveChat from './messages/ActiveChat';
+import RoomDetails from "./messages/RoomDetails";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
               <Route exact path="/register" element={<RegisterForm />} />
               <Route path="/songs/:id" element={<SongDetail />} />
               <Route path='/chats'>
-                <Route index element={<Messages />} />
+                <Route index element={<Chats />} />
                 <Route path=':id'>
                   <Route index element={<ActiveChat />} />
                   <Route path='details' element={<RoomDetails />} />

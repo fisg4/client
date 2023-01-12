@@ -1,0 +1,18 @@
+.create-room-button {
+    border: 1.5px solid #851ff8;
+    background-color: #edebfe;
+    padding: 0.5em;
+    color: #851ff8;
+    transition: 500ms;
+    border-radius: 100%;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-room-button:hover {
+    background-color: #851ff8;
+    color: #edebfe;
+    transition: 500ms;
+}

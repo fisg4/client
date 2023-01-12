@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'
-import { setRoom } from '../slices/roomsSlice'
-import '../../css/messages/activeChat/ActiveChat.css'
-import ActiveChatHeader from './ActiveChatHeader'
-import ActiveChatBody from './ActiveChatBody'
-import ActiveChatFooter from './ActiveChatFooter'
-import roomService from '../services/roomService';
-import Alert from '../../common/components/Alert';
+import { setRoom } from './slices/roomsSlice'
+import '../css/messages/activeChat/ActiveChat.css'
+import ActiveChatHeader from './activeChat/ActiveChatHeader'
+import ActiveChatBody from './activeChat/ActiveChatBody'
+import ActiveChatFooter from './activeChat/ActiveChatFooter'
+import roomService from './services/roomService';
+import Alert from '../common/components/Alert';
 
 export default function ActiveChat() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { id } = useParams();
   const { room } = useSelector(state => state.rooms);
-  // TODO: Extract from localStorage
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MmIyNjQ5YjJlNzA0NjRmMTEzZDQwYyJ9.WlWiI1BFoHJ_B13Yte30ZAMfZvIf5hzMqBfTWBs22m0';
+  
+  const token = localStorage.getItem('token')
+
   const [messages, setMessages] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -28,6 +31,11 @@ export default function ActiveChat() {
       } catch (error) {
         setErrorMessage("Error al obtener la información del chat");
       }
+    }
+
+    if (!token) {
+      navigate('/me')
+      return
     }
 
     getRoomDetails();

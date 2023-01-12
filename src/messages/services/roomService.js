@@ -11,7 +11,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid. ");
     } 
   
     return response.json();  
@@ -26,7 +26,7 @@ const roomService = {
     
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json(); 
@@ -45,7 +45,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json(); 
@@ -64,7 +64,7 @@ const roomService = {
 
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
 
     return response.json(); 
@@ -94,7 +94,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json();  
@@ -113,7 +113,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json();  

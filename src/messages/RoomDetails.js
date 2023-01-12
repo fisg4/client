@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
-import { setRoom } from '../slices/roomsSlice'
-import roomService from '../services/roomService'
+import { setRoom } from './slices/roomsSlice'
+import roomService from './services/roomService'
 
 export default function RoomDetails () {
   const navigate = useNavigate();
@@ -14,15 +14,19 @@ export default function RoomDetails () {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
-  // TODO: Extract from localStorage and check if user has access to this
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MmIyNjQ5YjJlNzA0NjRmMTEzZDQwYyJ9.WlWiI1BFoHJ_B13Yte30ZAMfZvIf5hzMqBfTWBs22m0';
-  const user = { id: '562b2649b2e70464f113d40c' }
+  const token = localStorage.getItem('token')
+  const user = localStorage.getItem('user')
 
   useEffect(() => {
     const redirectToChat = () => navigate(`/chats/${id}`)
     const setValues = () => {
       setName(room.name)
       setDescription(room.description)
+    }
+
+    if (!token || !user) {
+      navigate('/me')
+      return
     }
 
     if (!room) {
