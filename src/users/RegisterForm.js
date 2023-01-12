@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardBody, CardTitle, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
@@ -7,6 +8,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigation = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,18 +25,14 @@ const RegisterForm = () => {
         body: JSON.stringify({ email, username, password }),
       });
       if (response.ok) {
-        setErrorMessage('');
+        console.log(response);
         setEmail('');
         setUsername('');
         setPassword('');
         setConfirmPassword('');
-        alert('User created successfully. Redirecting to login page...');
-        setTimeout(() => {
-          window.location.replace('/login');
-        }, 500);
+        navigation('/me');
       } else {
-        const data = await response.json();
-        setErrorMessage(data.message);
+        setErrorMessage('Email already in use');
       }
     } catch (error) {
       setErrorMessage('Error creating user, please try again later');
