@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import LikedSongs from './LikedSongs';
+import DeleteButton from './components/DeleteButton';
 
 export default function Users(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Update initial value to an empty object
   const [errorMessage, setErrorMessage] = useState('');
-
+  
   useEffect(() => {
     // Check if user state variable is empty
     if (user == null) {
@@ -89,13 +90,21 @@ export default function Users(props) {
           </Card>
           <div class="mt-2">
             <Button onClick={handleSignOff}>Sign off</Button>
+
           </div>
         </div>
         <div class="row mb-3 w-75 mx-auto">
           <h5>Liked songs <i className="bi bi-heart-fill heart-filled" />:</h5>
         </div>
         <LikedSongs />
+        <div class="mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
+        <DeleteButton></DeleteButton>
+
+          </div>
+        
+
         </>
+        
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
           <CardBody>
