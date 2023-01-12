@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LikeButton.css';
+import '../../css/users/LikeButton.css'
 
 const LikeButton = ({ id }) => {
   const [liked, setLiked] = useState(false);

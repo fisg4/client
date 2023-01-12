@@ -21,7 +21,7 @@ function App() {
             <Routes>
               <Route index element={<Home />} />
               <Route path="/songs" element={<Songs />} />
-              <Route exact path="/login" element={<Users />} />
+              <Route exact path="/me" element={<Users />} />
               <Route exact path="/register" element={<RegisterForm />} />
               <Route path="/songs/:id" element={<SongDetail />} />
               <Route path='/messages'>
