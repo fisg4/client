@@ -35,7 +35,9 @@ describe("Songs List Tests", () => {
 
   it("renders a songs list results from Spotify", () => {
     const { unmount } = renderWithProviders(
-      <Song song={song} storable={true} />,
+      <BrowserRouter>
+        <Song song={song} storable={true} />
+      </BrowserRouter>,
       { container }
     );
     expect(container.querySelector("h5").textContent).toBe(song.title);
