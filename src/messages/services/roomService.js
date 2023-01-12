@@ -11,7 +11,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid. ");
     } 
   
     return response.json();  
@@ -26,7 +26,7 @@ const roomService = {
     
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json(); 
@@ -45,13 +45,13 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json(); 
   },
-  modifyRoom: async function (token, name, description) {
-    const request = new Request(`${BASE_PATH}/`, {
+  modifyRoom: async function (token, roomId, name, description) {
+    const request = new Request(`${BASE_PATH}/${roomId}/info`, {
       method: "PATCH",
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -64,7 +64,7 @@ const roomService = {
 
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
 
     return response.json(); 
@@ -79,10 +79,10 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
-    return response.json(); 
+    return response.status === 204; 
   },
   getRoomMessages: async function (token, roomId, page = 0, size = 10) {
     const request = new Request(`${BASE_PATH}/${roomId}/messages?page=${page}&size=${size}`, {
@@ -94,7 +94,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json();  
@@ -113,7 +113,7 @@ const roomService = {
   
     const response = await fetch(request);
     if (!response.ok) {
-      throw Error("Response not valid. " + response.json());
+      throw Error("Response not valid.");
     } 
   
     return response.json();  
