@@ -7,6 +7,7 @@ const initialState = {
         totalElements: 0,
         totalPages: 0
     },
+    room: null
   };
 
 export const roomsSlice = createSlice({
@@ -18,10 +19,13 @@ export const roomsSlice = createSlice({
         },
         setPagination: (state, action) => {
             state.pagination = action.payload;
+        },
+        setRoom: (state, action) => {
+            state.room = action.payload;
         }
     }
 });
 
-export const { setRooms, setPagination } = roomsSlice.actions;
+export const { setRooms, setPagination, setRoom } = roomsSlice.actions;
 
 export default roomsSlice.reducer;

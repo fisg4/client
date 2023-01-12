@@ -10,6 +10,7 @@ import Messages from './messages/Messages';
 import SongDetail from "./songs/components/SongDetail";
 import RegisterForm from "./users/RegisterForm";
 import ActiveChat from './messages/activeChat/ActiveChat';
+import RoomDetails from "./messages/roomDetails/RoomDetails";
 
 function App() {
   return (
@@ -24,9 +25,12 @@ function App() {
               <Route exact path="/me" element={<Users />} />
               <Route exact path="/register" element={<RegisterForm />} />
               <Route path="/songs/:id" element={<SongDetail />} />
-              <Route path='/messages'>
+              <Route path='/chats'>
                 <Route index element={<Messages />} />
-                <Route path=':id' element={<ActiveChat />} />
+                <Route path=':id'>
+                  <Route index element={<ActiveChat />} />
+                  <Route path='details' element={<RoomDetails />} />
+                </Route>
               </Route>
               <Route path="*" element={<ErrorPage />} />
             </Routes>

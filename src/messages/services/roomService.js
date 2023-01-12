@@ -50,8 +50,8 @@ const roomService = {
   
     return response.json(); 
   },
-  modifyRoom: async function (token, name, description) {
-    const request = new Request(`${BASE_PATH}/`, {
+  modifyRoom: async function (token, roomId, name, description) {
+    const request = new Request(`${BASE_PATH}/${roomId}/info`, {
       method: "PATCH",
       headers: {
         'Authorization': `Bearer ${token}`,
