@@ -1,0 +1,23 @@
+.active-chat-body-container {
+  height: 60vh;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  padding: 1em;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -1,0 +1,10 @@
+.active-chat-container {
+  margin: 3em 1em;
+}
+
+@media (min-width: 768px) {
+  .active-chat-container {
+    margin: 3em auto;
+    width: 50vw;
+  }
+}
