@@ -47,3 +47,7 @@
   font-size: 1.5em;
   margin-right: 0.5em;
 }
+
+.avoidInline {
+  white-space: pre-wrap;
+}

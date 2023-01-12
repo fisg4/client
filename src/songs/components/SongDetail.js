@@ -1,9 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import SongLyrics from "./SongLyrics";
+import { setLyrics, setInput } from "../slices/lyricsSlice";
 
 function SongDetail() {
   const { id } = useParams();
   const [song, setSong] = useState(null);
+  const dispatch = useDispatch();
+  const text = useSelector((state) => state.lyrics);
 
   useEffect(() => {
     async function fetchSong() {
@@ -21,20 +27,22 @@ function SongDetail() {
       const song = await response.json();
 
       setSong(song);
+      dispatch(setLyrics(song.lyrics || ""));
+      dispatch(setInput(song.lyrics || ""));
     }
 
     fetchSong();
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <div className="row">
       <div className="col-8 offset-2">
         <div className="d-flex flex-column">
-          <img src={song?.albumCover} class="card-img-top" alt="..." />
+          <img src={song?.albumCover} className="card-img-top" alt="..." />
           <div className="d-flex justify-content-between">
             <p>
               <span className="likeIcon">
-                <i class="bi bi-heart-fill"></i>
+                <i className="bi bi-heart-fill"></i>
               </span>
               3439 likes
             </p>
@@ -44,15 +52,7 @@ function SongDetail() {
           <audio controls>
             <source src={song?.audioUrl} type="audio/mpeg" />
           </audio>
-          <div className="d-flex justify-content-between">
-            <h3 className="card-title mt-3">Lyrics</h3>
-            <button className="btn btn-secondary mt-3">Edit</button>
-          </div>
-          {song?.lyrics ? (
-            <p className="card-text">{song?.lyrics}</p>
-          ) : (
-            <p className="card-text">No lyrics found</p>
-          )}
+          <SongLyrics song={song} text={text} />
         </div>
       </div>
     </div>
