@@ -12,7 +12,6 @@ export default function Users(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [updateErrorMessage, setUpdateErrorMessage] = useState('');
 
   useEffect(() => {
     // Check if user state variable is empty
@@ -109,9 +108,10 @@ export default function Users(props) {
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
-            setUpdateErrorMessage(data.message);
+            setErrorMessage("" + data.error + "");
+            return;
           } else {
-            setUpdateErrorMessage('');
+            setErrorMessage('');
             setEmail('');
             setUsername('');
             setPassword('');
