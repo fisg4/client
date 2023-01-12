@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { setLyrics, setInput } from "../slices/lyricsSlice";
 import LikeButton from "./LikeButton";
 import SongLyrics from "./SongLyrics";
-import { setLyrics, setInput } from "../slices/lyricsSlice";
+import SongAudio from "./SongAudio";
 
 function SongDetail() {
   const { id } = useParams();
@@ -47,9 +48,7 @@ function SongDetail() {
           </div>
           <h2 className="card-title">{song?.title}</h2>
           <p className="card-text">{song?.artists.join(", ")}</p>
-          <audio controls>
-            <source src={song?.audioUrl} type="audio/mpeg" />
-          </audio>
+          <SongAudio audioUrl={song.audioUrl} />
           <SongLyrics song={song} text={text} />
         </div>
       </div>
