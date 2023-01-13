@@ -95,7 +95,7 @@ export default function Users(props) {
     }
     const accessToken = localStorage.getItem('token');
     if (accessToken) {
-      fetch('/api/v1/users/me', {
+      const response = await fetch('/api/v1/users/me', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -103,20 +103,21 @@ export default function Users(props) {
         },
         body: JSON.stringify({email, username, password})
       })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.error) {
-            setErrorMessage("" + data.error + "");
-            return;
-          } else {
+      console.log(response.ok);
+      if (!response.ok) {
+        setErrorMessage('Email or username is already taken');
+        return;
+      } else {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             setErrorMessage('');
             setEmail('');
             setUsername('');
             setPassword('');
             setConfirmPassword('');
             window.location.reload();
-          }
-        });
+          
+        };
     }
   }
   return (
