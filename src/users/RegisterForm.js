@@ -32,7 +32,12 @@ const RegisterForm = () => {
         setConfirmPassword('');
         navigation('/me');
       } else {
-        setErrorMessage('Email already in use');
+        if (response.status === 401) {
+          setErrorMessage('Bad words are not allowed');
+          return;
+        } else if (response.status === 400) {
+          setErrorMessage('Email or username already exists');
+        }
       }
     } catch (error) {
       setErrorMessage('Error creating user, please try again later');

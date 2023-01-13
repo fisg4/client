@@ -105,8 +105,12 @@ export default function Users(props) {
       })
       console.log(response.ok);
       if (!response.ok) {
-        setErrorMessage('Email or username is already taken');
-        return;
+        if (response.status === 401) {
+          setErrorMessage('Bad words are not allowed');
+          return;
+        } else if (response.status === 400) {
+          setErrorMessage('Email or username already exists');
+        }
       } else {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
