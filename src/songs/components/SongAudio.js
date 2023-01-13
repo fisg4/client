@@ -4,12 +4,13 @@ function SongAudio() {
   const media = useSelector((state) => state.songMedia);
 
   return (
-    <audio controls>
-      <source
-        src={media.audioUrl || ""}
-        type="audio/mpeg"
-      />
-    </audio>
+    <>
+      {media?.audioUrl && (
+        <audio controls>
+          <source src={media.audioUrl} type="audio/mpeg" />
+        </audio>
+      )}
+    </>
   );
 }
 
