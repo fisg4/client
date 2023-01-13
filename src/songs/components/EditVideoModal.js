@@ -43,7 +43,7 @@ function EditVideoModal({ songId }) {
             throw Error("Response not valid. " + response.status);
         }
 
-        document.getElementById("toastConfirmation").addClass("show");
+        document.getElementById("toastConfirmation").classList.add("show");
     }
 
     return (
@@ -95,9 +95,9 @@ function EditVideoModal({ songId }) {
                                             sendTicket(
                                                 "/api/v1/songs/ticket",
                                                 {
-                                                    authorId: JSON.parse(localStorage.getItem("user")).id,
+                                                    userId: JSON.parse(localStorage.getItem("user")).id,
                                                     songId: songId,
-                                                    text: document.getElementById("videoUrlInput").value
+                                                    videoUrl: document.getElementById("videoUrlInput").value
                                                 }
                                             );
                                         }
