@@ -149,6 +149,7 @@ export default function Users(props) {
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
+              required
               type="email"
               name="email"
               id="email"
@@ -160,6 +161,7 @@ export default function Users(props) {
           <FormGroup>
             <Label for="username">Username</Label>
             <Input
+              required
               type="text"
               name="username"
               id="username"
