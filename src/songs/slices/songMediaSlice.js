@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   audioUrl: "",
   videoUrl: "",
+  videoUrlInput: "",
 };
 
 export const songMediaSlice = createSlice({
@@ -15,9 +16,12 @@ export const songMediaSlice = createSlice({
     setVideoUrl: (state, action) => {
       state.videoUrl = action.payload;
     },
+    setVideoUrlInput: (state, action) => {
+      state.videoUrlInput = action.payload;
+    },
   },
 });
 
-export const { setAudioUrl, setVideoUrl } = songMediaSlice.actions;
+export const { setAudioUrl, setVideoUrl, setVideoUrlInput } = songMediaSlice.actions;
 
 export default songMediaSlice.reducer;

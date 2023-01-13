@@ -7,6 +7,7 @@ import { setAudioUrl, setVideoUrl } from "../slices/songMediaSlice";
 import LikeButton from "./LikeButton";
 import SongLyrics from "./SongLyrics";
 import SongAudio from "./SongAudio";
+import SongVideo from "./SongVideo";
 
 function SongDetail() {
   const { id } = useParams();
@@ -53,8 +54,23 @@ function SongDetail() {
           </div>
           <h2 className="card-title">{song?.title}</h2>
           <p className="card-text">{song?.artists.join(", ")}</p>
-          <SongAudio />
-          <SongLyrics song={song} text={text} />
+          {!media?.videoUrl ? (
+            <div className="row">
+              <div className="col-12">
+                <SongAudio />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="row">
+            <div className="col-12 col-lg-6">
+              <SongVideo song={song} />
+            </div>
+            <div className="col-12 col-lg-6 order-lg-first">
+              <SongLyrics song={song} text={text} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

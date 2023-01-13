@@ -48,6 +48,14 @@
   margin-right: 0.5em;
 }
 
+.darkBlueText {
+  color: #5343f1;
+}
+
+.darkBlueText:hover {
+  color: #851ff8;
+}
+
 .avoidInline {
   white-space: pre-wrap;
 }
