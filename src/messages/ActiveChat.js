@@ -15,11 +15,13 @@ export default function ActiveChat() {
 
   const { id } = useParams();
   const { room } = useSelector(state => state.rooms);
-  
+
   const token = localStorage.getItem('token')
 
   const [messages, setMessages] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [newMessage, setNewMessage] = useState({});
 
   useEffect(() => {
     async function getRoom() {
@@ -39,18 +41,31 @@ export default function ActiveChat() {
     }
 
     getRoom();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, newMessage]);
+
+  async function sendMessage(message) {
+    console.log(message);
+    if (message) {
+      try {
+        const newMessageResponse = await roomService.createRoomMessage(token, room._id, message);
+        console.log(newMessageResponse)
+        setNewMessage(newMessageResponse.content);
+      } catch (err) {
+        alert('Could not send the message');
+      }
+    }
+  }
 
   if (errorMessage != null) {
-    return (<Alert message={errorMessage}/>);
+    return (<Alert message={errorMessage} />);
   }
 
   return (
     <div className='active-chat-container'>
       <ActiveChatHeader room={room}></ActiveChatHeader>
       <ActiveChatBody messages={messages}></ActiveChatBody>
-      <ActiveChatFooter></ActiveChatFooter>
+      <ActiveChatFooter sendMessage={sendMessage}></ActiveChatFooter>
     </div>
   )
 }
