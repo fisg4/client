@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: fastmusik
   labels:
     {{- include "fastmusik.labels" . | nindent 4 }}
 spec:
@@ -12,5 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: frontend
+    app.kubernetes.io/name: fastmusik
     app.kubernetes.io/instance: {{ .Release.Name }}
