@@ -56,7 +56,7 @@ function EditVideoModal({ songId }) {
                     </div>
                     <div className="modal-body">
                         <form>
-                            <div className="form-floating">
+                            <div className="form">
                                 <input
                                     type="text"
                                     className="form-control"
@@ -67,7 +67,6 @@ function EditVideoModal({ songId }) {
                                     onChange={(e) => dispatch(setVideoUrlInput(e.target.value))}
                                 >
                                 </input>
-                                <label htmlFor="videoUrlInput">Insert new video url for this song</label>
                             </div>
                         </form>
                     </div>
@@ -84,28 +83,28 @@ function EditVideoModal({ songId }) {
                                 )}
                             >
                                 Confirm
-                            </button>)
-                            : (
-                                <button
-                                    type="button"
-                                    className="btn border-purple text-purple bg-blue"
-                                    data-bs-dismiss="modal"
-                                    onClick={() => {
-                                        if (media?.videoUrlInput !== "" && media?.videoUrlInput !== null && media?.videoUrlInput !== undefined) {
-                                            sendTicket(
-                                                "/api/v1/songs/ticket",
-                                                {
-                                                    userId: JSON.parse(localStorage.getItem("user")).id,
-                                                    songId: songId,
-                                                    videoUrl: document.getElementById("videoUrlInput").value
-                                                }
-                                            );
-                                        }
-                                    }}
-                                >
-                                    Confirm
-                                </button>
-                            )}
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                className="btn border-purple text-purple bg-blue"
+                                data-bs-dismiss="modal"
+                                onClick={() => {
+                                    if (media?.videoUrlInput !== "" && media?.videoUrlInput !== null && media?.videoUrlInput !== undefined) {
+                                        sendTicket(
+                                            "/api/v1/songs/ticket",
+                                            {
+                                                userId: JSON.parse(localStorage.getItem("user")).id,
+                                                songId: songId,
+                                                videoUrl: document.getElementById("videoUrlInput").value
+                                            }
+                                        );
+                                    }
+                                }}
+                            >
+                                Confirm
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

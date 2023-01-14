@@ -5,7 +5,7 @@ function SongLyrics({ song, text }) {
   return (
     <>
       <div className="row">
-        <div className="col-6 col-lg-3">
+        <div className="col-6 col-lg-4 col-xl-3">
           <h3 className="card-title mt-3">Lyrics</h3>
         </div>
         {text?.lyrics ? (

@@ -1,6 +1,13 @@
+import { useDispatch } from "react-redux";
+import { setAudioUrl, setVideoUrl } from "../slices/songMediaSlice";
 import Song from "./Song";
 
 function SongsContainer({ songs, spotifySongs, emptyResults }) {
+  const dispatch = useDispatch();
+
+  dispatch(setAudioUrl(""));
+  dispatch(setVideoUrl(""));
+
   return (
     <div className="songsContainer">
       {emptyResults && (
