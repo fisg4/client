@@ -5,9 +5,7 @@ import SongsContainer from "./components/SongsContainer";
 import "../css/Songs.css";
 
 function Songs() {
-  const { songs } = useSelector((state) => state.songs);
-  const { spotify } = useSelector((state) => state.songs);
-  const { query } = useSelector((state) => state.songs);
+  const { songs, spotify, query } = useSelector((state) => state.songs);
 
   return (
     <div>
