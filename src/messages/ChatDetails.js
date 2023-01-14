@@ -15,7 +15,7 @@ export default function ChatDetails () {
   const [description, setDescription] = useState('')
 
   const token = localStorage.getItem('token')
-  const user = localStorage.getItem('user')
+  const user = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     const redirectToChat = () => navigate(`/chats/${id}`)
@@ -60,7 +60,7 @@ export default function ChatDetails () {
   }
 
   const userIsAdmin = () => {
-      return room.participants.filter(participant => participant.userId === user.id && participant.role === 1).length > 0
+    return room.participants.filter(participant => participant.userId === user.id && participant.role === 1).length > 0
   }
 
   if (!room) {

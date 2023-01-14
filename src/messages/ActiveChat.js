@@ -17,6 +17,7 @@ export default function ActiveChat() {
   const { room } = useSelector(state => state.rooms);
 
   const token = localStorage.getItem('token')
+  const user = JSON.parse(localStorage.getItem('user'))
 
   const [messages, setMessages] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -35,7 +36,7 @@ export default function ActiveChat() {
       }
     }
 
-    if (!token) {
+    if (!token || !user) {
       navigate('/me')
       return
     }
@@ -45,11 +46,9 @@ export default function ActiveChat() {
   }, [id, newMessage]);
 
   async function sendMessage(message) {
-    console.log(message);
     if (message) {
       try {
         const newMessageResponse = await roomService.createRoomMessage(token, room._id, message);
-        console.log(newMessageResponse)
         setNewMessage(newMessageResponse.content);
       } catch (err) {
         alert('Could not send the message');
@@ -64,7 +63,7 @@ export default function ActiveChat() {
   return (
     <div className='active-chat-container'>
       <ActiveChatHeader room={room}></ActiveChatHeader>
-      <ActiveChatBody messages={messages}></ActiveChatBody>
+      <ActiveChatBody token={token} user={user} messages={messages}></ActiveChatBody>
       <ActiveChatFooter sendMessage={sendMessage}></ActiveChatFooter>
     </div>
   )
