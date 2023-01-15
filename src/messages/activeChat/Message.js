@@ -8,11 +8,7 @@ import {
   Button, Modal, ModalBody
 } from "reactstrap"
 
-<<<<<<< HEAD
 export default function Message({ token, user, message }) {
-=======
-export default function Message({token, user, message }) {
->>>>>>> 5c7f83ae0ece3b6ac9a004a1d934f59a380ce4bc
 
   const [text, setText] = useState(message.text);
   const [reason, setReason] = useState('');
