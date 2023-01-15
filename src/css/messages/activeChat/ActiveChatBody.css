@@ -5,12 +5,20 @@
   overflow: auto;
 }
 
+.day {
+  padding: .25em 1em;
+  background-color: #edebfe;
+  border-radius: 5px;
+  width: fit-content;
+  margin: 1em auto;
+}
+
 ::-webkit-scrollbar {
   width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #edebfe;
 }
 
 ::-webkit-scrollbar-thumb {

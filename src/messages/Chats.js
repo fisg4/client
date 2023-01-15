@@ -21,7 +21,7 @@ export default function Chat() {
   useEffect(() => {
     async function getRoomList() {
       try {
-        const response = await roomService.getRooms(token, currentPage, 3);
+        const response = await roomService.getRooms(token, currentPage, 1);
         if (response.success) {
           const { content, totalElements, totalPages } = response;
           const currentPage = parseInt(response.currentPage);
