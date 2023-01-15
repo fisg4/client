@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
 import { setRoom } from './slices/roomsSlice'
 import roomService from './services/roomService'
+import { MdOutlineEdit } from 'react-icons/md';
+import { IoMdTrash } from 'react-icons/io';
 import '../css/messages/activeChat/Details.css'
 
 export default function ChatDetails() {
@@ -43,7 +45,7 @@ export default function ChatDetails() {
     if (response) {
       navigate('/chats')
     } else {
-      alert('No se ha podido eliminar esa sala')
+      alert('The chat could not be deleted')
     }
   }
 
@@ -57,7 +59,7 @@ export default function ChatDetails() {
       setEditable(false)
       setName(room.name)
       setDescription(room.description)
-      alert('No se ha podido modificar esta sala')
+      alert('The chat info could not be modified')
     }
   }
 
@@ -70,57 +72,60 @@ export default function ChatDetails() {
   }
 
   return (
-    <div className='d-flex flex-column active-chat-container'>
-      <div className="active-chat-header-container">
-        <img src={room?.song?.albumCover} alt='active-chat-header-avatar' className='active-chat-header-avatar' />
-        <div className='d-flex flex-column active-chat-header-name'>
-          {!isEditable ? <>
-            <span>{room?.name}</span>
-            <small>{room?.description}</small>
-          </> : <>
-            <input className='input-details' onChange={(event) => setName(event.target.value)} value={name} />
-            <input className='input-details' onChange={(event) => setDescription(event.target.value)} value={description} />
-          </>}
+    <div className='chat-details-container'>
+      <div className='song-info'>
+        <div className='song-header'>Details of the song</div>
+        <div className='song-main-details'>
+          <span><strong>{room?.song?.title}</strong></span>
+          <span>{room?.song?.releaseDate}</span>
+          <small>{room?.song?.artists.join(", ")}</small>
+          <small><i className='bi bi-heart-fill'></i> {room?.song?.likes.length} likes</small>
         </div>
       </div>
-      <div className="row mt-1 participants-container">
-        <div className="col-12">
+      <div className='room-info'>
+        <div className='chat-details-header'>
+          <div className='edit-container'>
+            <div className='chat-details-header-main-content'>
+              <img src={room?.song?.albumCover} alt='active-chat-header-avatar' className='active-chat-header-avatar' />
+              <div className='d-flex flex-column active-chat-header-name'>
+                {!isEditable ? <>
+                  <span>{room?.name}</span>
+                  <small>{room?.description}</small>
+                </> : <>
+                  <input className='input-details' onChange={(event) => setName(event.target.value)} value={name} />
+                  <input className='input-details' onChange={(event) => setDescription(event.target.value)} value={description} />
+                </>}
+              </div>
+            </div>
+            {userIsAdmin() && 
+              <div className='actions-container'>
+              {
+                !isEditable ?
+                  <>
+                    <MdOutlineEdit className='edit-icon' onClick={() => setEditable(true)} />
+                    <IoMdTrash className='delete-icon' onClick={() => handleDelete(room?._id)} />
+                  </> :
+                  <>
+                    <button className='btn btn-msg' onClick={() => handleSubmit()}>
+                      Confirm <i className="bi bi-check-circle-fill"></i>
+                    </button>
+                    <button className='btn btn-msg' onClick={() => setEditable(false)}>
+                      Cancel <i className="bi bi-x-circle-fill"></i>
+                    </button></>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        <div className='participants'>
+          <div className="participants-title">Participants</div>
           {room && room?.participants.map(participant =>
-            <div className="row py-2" key={participant.userId}>
-              <span className='col-12 text-center'>{participant?.username} ({participant?.email}) {participant.role === 1 && <span>⭐</span>}</span>
+            <div className="participant" key={participant.userId}>
+              <span>{participant?.username} ({participant?.email}) {participant.role === 1 && <span>⭐</span>}</span>
             </div>
           )}
         </div>
       </div>
-      <div className='row flex-column mt-1 p-2 song-info'>
-          <span><strong>{room?.song?.title}</strong> - {room?.song?.releaseDate}</span>
-          <small>{room?.song?.artists.join(", ")}</small>
-          <small><i className='bi bi-heart-fill'></i> {room?.song?.likes.length} likes</small>
-      </div>
-      {userIsAdmin() && (
-        <div className="row mt-1 justify-content-around actions-container">
-          <div className='text-center'>
-            {!isEditable ?
-              <button className='btn btn-msg' onClick={() => setEditable(true)}>
-                Edit <i className="bi bi-pencil-square"></i>
-              </button> :
-              <button className='btn btn-msg' onClick={() => handleSubmit()}>
-                Confirm <i className="bi bi-check-circle-fill"></i>
-              </button>
-            }
-          </div>
-          <div className='text-center'>
-            {!isEditable ?
-              <button className='btn btn-msg' onClick={() => handleDelete(room?._id)}>
-                Delete <i className="bi bi-trash-fill"></i>
-              </button> :
-              <button className='btn btn-msg' onClick={() => setEditable(false)}>
-                Cancel <i className="bi bi-x-circle-fill"></i>
-              </button>
-            }
-          </div>
-        </div>
-        )}
     </div>
   )
 }

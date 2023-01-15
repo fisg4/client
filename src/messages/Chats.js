@@ -31,7 +31,7 @@ export default function Chat() {
           dispatch(setPagination({ currentPage, totalElements, totalPages }))
         }
       } catch (error) {
-        setErrorMessage("Ha ocurrido un problema al recuperar los chats");
+        setErrorMessage("A problem occurred while getting chats");
       }
     }
 

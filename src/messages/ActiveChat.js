@@ -99,7 +99,7 @@ export default function ActiveChat() {
         setUsers(participants);
         setMessages(messagesResponse.content);
       } catch (error) {
-        setErrorMessage("Error al obtener la información del chat");
+        setErrorMessage("Error while getting chat info");
       }
     }
 
