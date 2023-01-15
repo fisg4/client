@@ -10,6 +10,7 @@ const TokenListener = () => {
       if (tokenExpireDate && new Date(tokenExpireDate) < new Date()) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('tokenExpireDate');
         setMessage("Token Expired");
         clearInterval(checkToken);
         // navigate to /me
