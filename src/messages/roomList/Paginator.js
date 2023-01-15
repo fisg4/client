@@ -1,4 +1,6 @@
 import React from 'react'
+import '../../css/messages/components/Paginator.css'
+import { IoIosArrowForward } from 'react-icons/io';
 
 export default function Paginator({ currentPage, totalElements, totalPages, handleChangePage }) {
     const nextPage = currentPage + 1
@@ -6,10 +8,13 @@ export default function Paginator({ currentPage, totalElements, totalPages, hand
 
     return (
         <div className="rooms-paginator">
-            {previousPage >= 0 && (<button onClick={() => handleChangePage(currentPage - 1)}>Anterior</button>)}
+            {previousPage >= 0 && (<div onClick={() => handleChangePage(currentPage - 1)}>
+                <IoIosArrowForward className='btn-circular btn-circular-previous'/>
+            </div>)}
             <span>Página {currentPage + 1} de {totalPages}</span>
-            {nextPage < totalPages && (<button onClick={() => handleChangePage(currentPage + 1)}>Siguiente</button>)}
-            <span> - {totalElements} elementos</span>
+            {nextPage < totalPages && (<div onClick={() => handleChangePage(currentPage + 1)}>
+                <IoIosArrowForward className='btn-circular'/>
+            </div>)}
         </div>
     )
 }

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+.actions-container {
+  display: flex;
+  gap: 1em;
+}
+
+.btn-edit {
+  background-color: #edebfe;
+  color: #851ff8;
+  border: 1px solid #851ff8;
+  border-radius: 5px;
+  transition: 300ms all;
+}
+
+.btn-edit:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+
+}
+
+.header-title {
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+.table {
+  margin: 3em auto!important;
+}
+
+.table-header {
+  background-color: #786cf7;
+  color: #fff;
+  border: 1px solid #786cf7;
+}
+
+.table-row {
+  border-right: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  padding: .5em!important;
+  transition: 300ms all;
+}
+
+.btn-delete:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+}
+
+.input-details {
+  margin: .25em;
+  padding: .5em;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #851ff8;
+  transition: 300ms all;
+}
+
+.input-details:focus{
+  outline: none;
+  box-shadow: none;
+  border: 2px solid #786cf7;
+}

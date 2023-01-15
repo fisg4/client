@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
 import { setRoom } from './slices/roomsSlice'
 import roomService from './services/roomService'
+import '../css/messages/activeChat/Details.css'
 
-export default function ChatDetails () {
+export default function ChatDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -15,7 +16,7 @@ export default function ChatDetails () {
   const [description, setDescription] = useState('')
 
   const token = localStorage.getItem('token')
-  const user = localStorage.getItem('user')
+  const user = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     const redirectToChat = () => navigate(`/chats/${id}`)
@@ -34,7 +35,7 @@ export default function ChatDetails () {
     } else {
       setValues()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   const handleDelete = async (roomId) => {
@@ -49,7 +50,8 @@ export default function ChatDetails () {
   const handleSubmit = async (event) => {
     const response = await roomService.modifyRoom(token, room._id, name, description);
     if (response.success) {
-      dispatch(setRoom(response.content))
+      const { name, description } = response.content;
+      dispatch(setRoom({ ...room, name, description }))
       setEditable(false)
     } else {
       setEditable(false)
@@ -60,46 +62,65 @@ export default function ChatDetails () {
   }
 
   const userIsAdmin = () => {
-      return room.participants.filter(participant => participant.userId === user.id && participant.role === 1).length > 0
+    return room.participants.filter(participant => participant.userId === user.id && participant.role === 1).length > 0
   }
 
   if (!room) {
     return navigate(`/chats/${id}`);
   }
 
-  return (<>
-    <div className="header">
-      <img src={room?.img} alt='active-chat-header-avatar' className='active-chat-header-avatar'/>
-      <div className='active-chat-header-name'>
-        {!isEditable ? <>
-          <span className='d-block'>{room?.name}</span>
-          <small>{room?.description}</small>
-        </> : <>
-          <input className='d-block' onChange={(event) => setName(event.target.value)} value={ name } />
-          <input onChange={(event) => setDescription(event.target.value)} value={ description } />
-        </>}
-      </div>
-    </div>
-    <div className="participants-container">
-      {room && room?.participants.map(participant => 
-        <div className="participant-row" key={participant.userId}>
-          <span>{participant.userId}</span>
-          {participant.role === 1 && <span>⭐</span>}
+  return (
+    <div className='d-flex flex-column active-chat-container'>
+      <div className="active-chat-header-container">
+        <img src={room?.song?.albumCover} alt='active-chat-header-avatar' className='active-chat-header-avatar' />
+        <div className='d-flex flex-column active-chat-header-name'>
+          {!isEditable ? <>
+            <span>{room?.name}</span>
+            <small>{room?.description}</small>
+          </> : <>
+            <input className='input-details' onChange={(event) => setName(event.target.value)} value={name} />
+            <input className='input-details' onChange={(event) => setDescription(event.target.value)} value={description} />
+          </>}
         </div>
-      )}
-    </div>
-    <div className="actions-container">
-    {userIsAdmin() && (
-      <div className='room-actions'>
-        {!isEditable ? <>
-          <button className='btn btn-sm btn-primary' onClick={() => setEditable(true)}>Editar</button>
-          <button className='btn btn-sm btn-danger' onClick={() => handleDelete(room?._id)}>Delete</button>
-        </> : <>
-          <button className='btn btn-sm btn-success' onClick={() => handleSubmit()}>Confirmar</button>
-          <button className='btn btn-sm btn-danger' onClick={() => setEditable(false)}>Cancelar</button>
-        </>}
       </div>
-    )}
+      <div className="row mt-1 participants-container">
+        <div className="col-12">
+          {room && room?.participants.map(participant =>
+            <div className="row py-2" key={participant.userId}>
+              <span className='col-12 text-center'>{participant?.username} ({participant?.email}) {participant.role === 1 && <span>⭐</span>}</span>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className='row flex-column mt-1 p-2 song-info'>
+          <span><strong>{room?.song?.title}</strong> - {room?.song?.releaseDate}</span>
+          <small>{room?.song?.artists.join(", ")}</small>
+          <small><i className='bi bi-heart-fill'></i> {room?.song?.likes.length} likes</small>
+      </div>
+      {userIsAdmin() && (
+        <div className="row mt-1 justify-content-around actions-container">
+          <div className='text-center'>
+            {!isEditable ?
+              <button className='btn btn-msg' onClick={() => setEditable(true)}>
+                Edit <i className="bi bi-pencil-square"></i>
+              </button> :
+              <button className='btn btn-msg' onClick={() => handleSubmit()}>
+                Confirm <i className="bi bi-check-circle-fill"></i>
+              </button>
+            }
+          </div>
+          <div className='text-center'>
+            {!isEditable ?
+              <button className='btn btn-msg' onClick={() => handleDelete(room?._id)}>
+                Delete <i className="bi bi-trash-fill"></i>
+              </button> :
+              <button className='btn btn-msg' onClick={() => setEditable(false)}>
+                Cancel <i className="bi bi-x-circle-fill"></i>
+              </button>
+            }
+          </div>
+        </div>
+        )}
     </div>
-  </>)
+  )
 }
