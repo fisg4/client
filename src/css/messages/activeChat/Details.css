@@ -1,4 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+/* font-family: 'Poppins', sans-serif; */
+
+.chat-details-container {
+  box-shadow: rgba(120, 108, 247, 0.35) 0px 5px 15px;
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.chat-details-header {
+  border: 1px solid #786cf7;
+  border-radius: 5px 5px 0 0;
+  padding: 1em;
+}
+
+.edit-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1em;
+}
+
+.actions-container>* {
+  padding: .2em;
+  margin: .25em;
+}
+
+.edit-icon {
+  background-color: #786cf7;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 60;
+  font-size: 2.5rem;
+  transition: 300ms all;
+}
+
+.delete-icon {
+  border: 2px solid #786cf7;
+  color: #786cf7;
+  border-radius: 5px;
+  font-weight: 60;
+  font-size: 2.5rem;
+  transition: 300ms all;
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+  background-color: #786cf7;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.edit-icon:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.chat-details-header-main-content {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.input-details {
+  margin: .25em;
+  padding: .5em;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #851ff8;
+  transition: 300ms all;
+}
+
+.input-details:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid #786cf7;
+}
+
+/*
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
 .actions-container {
   display: flex;
@@ -68,3 +148,4 @@
   box-shadow: none;
   border: 2px solid #786cf7;
 }
+*/
