@@ -19,8 +19,10 @@
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.5",
     "socket.io-client": "^4.5.4",
+    "testcafe": "^2.2.0",
     "web-vitals": "^2.1.4"
   },
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -231,7 +231,7 @@ export default function Users(props) {
               {errorMessage && <div class="text-center mt-3 text-danger">{errorMessage}</div>}
             </Form>
           </CardBody>
-          <div class="text-center mb-3">(Don't have an account yet? <a href="/register">Click here</a>)</div>
+          <div class="text-center mb-3">(Don't have an account yet? <a id="register" href="/register">Click here</a>)</div>
         </Card>
       )}
     </div>

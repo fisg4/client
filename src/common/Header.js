@@ -25,7 +25,7 @@ function Header() {
             <div className="col-2 text-end py-2">
               <Link to="/me">
                 Log in
-                <img src={perfil} className="img-fluid align-middle header-perfil" alt="Perfil" />
+                <img src={perfil} id="profile" className="img-fluid align-middle header-perfil" alt="Perfil" />
               </Link>
             </div>
           </div>
