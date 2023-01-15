@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import '../../css/messages/roomList/RoomList.css'
 import Room from './Room';
 
-export default function RoomList({ rooms }) {
+export default function RoomList({ rooms, isPage = true }) {
     return (
-    <div className='room-list-container'>
+    <div className={`room-list-container ${isPage ? 'w-75' : ''}`}>
       {
         rooms.map((room) => {
           return (

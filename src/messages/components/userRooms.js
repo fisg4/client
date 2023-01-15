@@ -38,11 +38,14 @@ export default function UserRooms () {
     rooms.length > 0 ?
       <div className="col-12">
         <div className="row flex-row justify-content-between">
-          <span className="d-flex" style={{ width: 'fit-content' }}>Your most recents rooms</span>
+          <span className="d-flex" style={{ width: 'fit-content' }}>
+            <i className="bi bi-chat-dots-fill" style={{ marginRight: '0.5em'}}></i>
+            Your most recents rooms
+          </span>
           {totalRooms > MAX_ROWS && <Link className="d-flex" style={{ width: 'fit-content' }} to={'/chats'}>See all</Link>}
         </div>
         <div className="row">
-          <RoomList rooms={rooms}></RoomList>
+          <RoomList rooms={rooms} isPage={false}></RoomList>
         </div>
       </div>
     :

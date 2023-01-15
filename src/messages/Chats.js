@@ -18,10 +18,12 @@ export default function Chat() {
 
   const token = localStorage.getItem('token')
 
+  const MAX_ROWS = 5
+
   useEffect(() => {
     async function getRoomList() {
       try {
-        const response = await roomService.getRooms(token, currentPage, 1);
+        const response = await roomService.getRooms(token, currentPage, MAX_ROWS);
         if (response.success) {
           const { content, totalElements, totalPages } = response;
           const currentPage = parseInt(response.currentPage);
