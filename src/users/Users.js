@@ -4,9 +4,9 @@ import LikedSongs from './LikedSongs';
 import DeleteButton from './components/DeleteButton';
 import '../css/users/LikeButton.css'
 
-export default function Users(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); // Update initial value to an empty object
+export default function Users({logged, userTest}) {
+  const [isLoggedIn, setIsLoggedIn] = useState(logged ?? false);
+  const [user, setUser] = useState(userTest ?? null); // Update initial value to an empty object
   const [errorMessage, setErrorMessage] = useState('');
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [email, setEmail] = useState('');

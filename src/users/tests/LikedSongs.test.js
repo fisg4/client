@@ -1,23 +1,34 @@
 import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 import LikedSongs from '../LikedSongs'
+import { unmountComponentAtNode } from "react-dom";
+import { renderWithProviders } from '../../utils/test-utils'
 
-describe('LikedSongs', () => {
-    it('hello world', () => {
-        expect(true).toBe(true)
-    })
-//   it('should display no songs liked yet when the component is rendered', async () => {
-//     const { getByText } = render(<LikedSongs />)
+describe('Liked songs', () => {
 
-//     expect(getByText('No songs liked yet')).toBeInTheDocument()
-//   })
+    let container = null;
+    beforeEach(() => {
+    // setup a DOM element as a render target
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    });
 
-//   it('should call the setSongs function when the component is rendered', async () => {
-//     const setSongs = jest.fn()
-//     const { getByText } = render(<LikedSongs setSongs={setSongs} />)
+    afterEach(() => {
+    // cleanup on exiting
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+    });
 
-//     expect(setSongs).toHaveBeenCalled()
-//   })
+  it('No liked songs', async () => {
+      const { unmount } = renderWithProviders(
+          <LikedSongs />,
+          { container }
+      );
+      //expect text No songs liked yet in div "buenas"
+    expect(container.querySelector("div").textContent).toBe("No songs liked yet");
+      unmount();
+  })
 
 //   it('should call the setError function when an error occurs', async () => {
 //     const setError = jest.fn()
