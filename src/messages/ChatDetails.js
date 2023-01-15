@@ -72,9 +72,17 @@ export default function ChatDetails() {
   }
 
   return (
-    <>
-
-      <div className='chat-details-container'>
+    <div className='chat-details-container'>
+      <div className='song-info'>
+        <div className='song-header'>Details of the song</div>
+        <div className='song-main-details'>
+          <span><strong>{room?.song?.title}</strong></span>
+          <span>{room?.song?.releaseDate}</span>
+          <small>{room?.song?.artists.join(", ")}</small>
+          <small><i className='bi bi-heart-fill'></i> {room?.song?.likes.length} likes</small>
+        </div>
+      </div>
+      <div className='room-info'>
         <div className='chat-details-header'>
           <div className='edit-container'>
             <div className='chat-details-header-main-content'>
@@ -90,65 +98,32 @@ export default function ChatDetails() {
               </div>
             </div>
             <div className='actions-container'>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div className='d-flex flex-column active-chat-container'>
-        <div className="active-chat-header-container">
-          <img src={room?.song?.albumCover} alt='active-chat-header-avatar' className='active-chat-header-avatar' />
-          <div className='d-flex flex-column active-chat-header-name'>
-            {!isEditable ? <>
-              <span>{room?.name}</span>
-              <small>{room?.description}</small>
-            </> : <>
-              <input className='input-details' onChange={(event) => setName(event.target.value)} value={name} />
-              <input className='input-details' onChange={(event) => setDescription(event.target.value)} value={description} />
-            </>}
-          </div>
-        </div>
-        <div className="row mt-1 participants-container">
-          <div className="col-12">
-            {room && room?.participants.map(participant =>
-              <div className="row py-2" key={participant.userId}>
-                <span className='col-12 text-center'>{participant?.username} ({participant?.email}) {participant.role === 1 && <span>⭐</span>}</span>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className='row flex-column mt-1 p-2 song-info'>
-          <span><strong>{room?.song?.title}</strong> - {room?.song?.releaseDate}</span>
-          <small>{room?.song?.artists.join(", ")}</small>
-          <small><i className='bi bi-heart-fill'></i> {room?.song?.likes.length} likes</small>
-        </div>
-        {userIsAdmin() && (
-          <div className="row mt-1 justify-content-around actions-container">
-            <div className='text-center'>
-              {!isEditable ?
-                <button className='btn btn-msg' onClick={() => setEditable(true)}>
-                  Edit <i className="bi bi-pencil-square"></i>
-                </button> :
-                <button className='btn btn-msg' onClick={() => handleSubmit()}>
-                  Confirm <i className="bi bi-check-circle-fill"></i>
-                </button>
-              }
-            </div>
-            <div className='text-center'>
-              {!isEditable ?
-                <button className='btn btn-msg' onClick={() => handleDelete(room?._id)}>
-                  Delete <i className="bi bi-trash-fill"></i>
-                </button> :
-                <button className='btn btn-msg' onClick={() => setEditable(false)}>
-                  Cancel <i className="bi bi-x-circle-fill"></i>
-                </button>
+              {
+                !isEditable ?
+                  <>
+                    <MdOutlineEdit className='edit-icon' onClick={() => setEditable(true)} />
+                    <IoMdTrash className='delete-icon' onClick={() => handleDelete(room?._id)} />
+                  </> :
+                  <>
+                    <button className='btn btn-msg' onClick={() => handleSubmit()}>
+                      Confirm <i className="bi bi-check-circle-fill"></i>
+                    </button>
+                    <button className='btn btn-msg' onClick={() => setEditable(false)}>
+                      Cancel <i className="bi bi-x-circle-fill"></i>
+                    </button></>
               }
             </div>
           </div>
-        )}
+        </div>
+        <div className='participants'>
+          <div className="participants-title">Participants</div>
+          {room && room?.participants.map(participant =>
+            <div className="participant" key={participant.userId}>
+              <span>{participant?.username} ({participant?.email}) {participant.role === 1 && <span>⭐</span>}</span>
+            </div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   )
 }
