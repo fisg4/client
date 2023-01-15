@@ -9,40 +9,47 @@ function SongVideo({ song }) {
     <>
       {videoId !== false ? (
         <>
-          <div class="ratio ratio-16x9 mt-lg-3">
+          <div className="ratio ratio-16x9 mt-lg-3">
             <iframe
               src={`https://www.youtube.com/embed/${videoId}`}
               title="Song video"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
+              allowFullScreen>
             </iframe>
           </div>
-          <p className="card-text mt-2">
-            Not the right video? <a
-              href="#editVideo"
-              className="darkBlueText"
-              data-bs-toggle="modal"
-              data-bs-target="#videoUrlModal">
-              Request change</a>
-          </p>
-          <div id="toastConfirmation" class="toast align-items-center border-purple bg-blue" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-              <div class="toast-body">
-                Your request has been sent. Thank you!
+          {localStorage.getItem("token") && (
+            <>
+              <p className="card-text mt-2">
+                Not the right video? <a
+                  href="#editVideo"
+                  className="darkBlueText text-decoration-none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#videoUrlModal">
+                  Request change</a>
+              </p>
+              <div id="toastConfirmation" className="toast align-items-center border-purple bg-blue" role="alert" aria-live="assertive" aria-atomic="true">
+                <div className="d-flex">
+                  <div className="toast-body">
+                    Your request has been sent. Thank you!
+                  </div>
+                  <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
               </div>
-              <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-          </div>
+            </>)}
         </>
       ) : (
-        <div>
+        <>
           <h3 className="card-title mt-3">Music video not available</h3>
-          <p className="card-text mt-2">Would you like to add it?</p>
-          <button className="btn border-purple text-purple bg-blue" data-bs-toggle="modal" data-bs-target="#videoUrlModal">
-            Add Video
-          </button>
-        </div>
+          {localStorage.getItem("token") && (
+            <>
+              <p className="card-text mt-2">Would you like to add it?</p>
+              <button className="btn border-purple text-purple bg-blue" data-bs-toggle="modal" data-bs-target="#videoUrlModal">
+                Add Video
+              </button>
+            </>
+          )}
+        </>
       )}
       <EditVideoModal songId={song?.id} />
     </>

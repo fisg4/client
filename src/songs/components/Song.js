@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Alert from "../../common/components/Alert";
 
 function Song({ song, storable }) {
   const [alreadyExists, setAlreadyExists] = useState(false);
@@ -34,7 +33,7 @@ function Song({ song, storable }) {
 
   return (
     <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-      <div className="songCard d-flex justify-content-around align-items-center">
+      <div className="songCard bg-purple d-flex justify-content-around align-items-center">
         <img
           src={song.albumCover}
           alt={`Album cover of ${song.title}`}
@@ -53,24 +52,31 @@ function Song({ song, storable }) {
               className="btnAddSong d-flex justify-content-center align-items-center"
               onClick={() => saveSong(song)}
             >
-              <i className="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg fs-3"></i>
             </div>
           </div>
         ) : (
           <div>
             <Link to={`/songs/${song.id}`}>
               <div className="btnAddSong d-flex justify-content-center align-items-center">
-                <i className="bi bi-music-note-beamed"></i>
+                <i className="bi bi-music-note-beamed fs-3"></i>
               </div>
             </Link>
           </div>
         )}
       </div>
       {alreadyExists ? (
-        <Alert
-          message={"This song already exists in FastMusik"}
-          onClose={onAlertClose}
-        />
+        <div className="mx-2 my-3">
+          <div className="toast w-auto align-items-center border-0 bg-warning show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="d-flex">
+              <div className="toast-body fw-semibold">
+                This song already exists in FastMusik
+              </div>
+              <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"
+                onClick={onAlertClose}></button>
+            </div>
+          </div>
+        </div>
       ) : null}
     </div>
   );

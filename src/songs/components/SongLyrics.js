@@ -4,18 +4,16 @@ function SongLyrics({ song, text }) {
 
   return (
     <>
-      <div className="row">
-        <div className="col-6 col-lg-4 col-xl-3">
-          <h3 className="card-title mt-3">Lyrics</h3>
+      <div className="row align-items-end">
+        <div className="col-6 col-lg-4 col-xxl-3 mt-3 pe-0">
+          <h3 className="card-title">Lyrics</h3>
         </div>
-        {text?.lyrics ? (
-          <div className="col-6 col-lg-2 d-flex justify-content-end justify-content-lg-start">
-            <button className="btn border-purple text-purple bg-blue my-3" data-bs-toggle="modal" data-bs-target="#lyricsModal">
+        {localStorage.getItem("token") && text?.lyrics && (
+          <div className="col-6 col-lg-2 text-end text-lg-start ps-0">
+            <a href="#edit" className="fs-2 darkBlueText" data-bs-toggle="modal" data-bs-target="#lyricsModal">
               <i className="bi bi-pencil-square"></i>
-            </button>
+            </a>
           </div>
-        ) : (
-          <></>
         )}
         <EditLyricsModal songId={song?.id} />
       </div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { setCount } from '../slices/likesSlice';
 import '../../css/users/LikeButton.css'
 
 const LikeButton = ({ id }) => {
@@ -6,6 +8,9 @@ const LikeButton = ({ id }) => {
   const [likeId, setLikeId] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const URL_BASE = window.location.origin;
+
+  const dispatch = useDispatch();
+  const likes = useSelector((state) => state.likes);
 
   useEffect(() => {
     // Make GET request to "api/v1/user/likes" to check if the song has already been liked by the user
@@ -47,7 +52,7 @@ const LikeButton = ({ id }) => {
       setShowButton(true);
     }
   }, []);
-  
+
   const handleClick = () => {
     if (liked) {
       // Make DELETE request to "api/v1/user/likes"
@@ -64,6 +69,7 @@ const LikeButton = ({ id }) => {
           if (response.ok) {
             // If the DELETE request was successful, set liked to false
             setLiked(false);
+            dispatch(setCount(likes.count - 1));
           }
         })
         .catch(error => {
@@ -86,6 +92,7 @@ const LikeButton = ({ id }) => {
           if (response.ok) {
             // If the POST request was successful, set liked to true
             setLiked(true);
+            dispatch(setCount(likes.count + 1));
           }
         })
         .catch(error => {
@@ -99,12 +106,12 @@ const LikeButton = ({ id }) => {
     const heart = document.querySelector('.bi');
     heart.classList.add('heart-hover');
   };
-  
+
   const handleMouseLeave = () => {
     const heart = document.querySelector('.bi');
     heart.classList.remove('heart-hover');
   };
-  
+
   return (
     showButton &&
     <span className="likeIcon" onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

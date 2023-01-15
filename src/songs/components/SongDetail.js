@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLyrics, setInput } from "../slices/lyricsSlice";
 import { setAudioUrl, setVideoUrl } from "../slices/songMediaSlice";
+import { setLikeList, setCount } from "../slices/likesSlice";
 import { youtubeParser } from "./SongVideo";
 
 import LikeButton from "./LikeButton";
+import LikeCounter from "./LikeCounter";
 import SongLyrics from "./SongLyrics";
 import SongAudio from "./SongAudio";
 import SongVideo from "./SongVideo";
@@ -14,9 +16,11 @@ import DeleteSongButton from "./DeleteSongButton";
 function SongDetail() {
   const { id } = useParams();
   const [song, setSong] = useState(null);
+
   const dispatch = useDispatch();
   const text = useSelector((state) => state.lyrics);
   const media = useSelector((state) => state.songMedia);
+  const likes = useSelector((state) => state.likes);
 
   useEffect(() => {
     async function fetchSong() {
@@ -39,6 +43,9 @@ function SongDetail() {
 
       dispatch(setAudioUrl(song.audioUrl || ""));
       dispatch(setVideoUrl(song.videoUrl || ""));
+
+      dispatch(setLikeList(song.likes || []));
+      dispatch(setCount(song.likes.length || 0));
     }
 
     fetchSong();
@@ -49,13 +56,14 @@ function SongDetail() {
       <div className="card border-0 col-8 offset-2card border-0 col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
         <div className="d-flex flex-column">
           <img src={song?.albumCover} className="card-img-top" alt="..." />
-          <div className="card-body">
+          <div className="card-body px-0">
             <div className="d-flex justify-content-between">
               <p>
                 <LikeButton id={id} />
+                <LikeCounter songId={id} numLikes={likes.count}/>
               </p>
             </div>
-            {JSON.parse(localStorage.getItem("user")).role === 'admin' ? (
+            {JSON.parse(localStorage.getItem("user"))?.role === 'admin' ? (
               <div className="d-flex justify-content-between">
                 <div className="col-10 col-sm-8">
                   <h2 className="card-title">{song?.title}</h2>
