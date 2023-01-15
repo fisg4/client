@@ -8,6 +8,7 @@ import Songs from './songs/Songs';
 import Users from './users/Users';
 import Chats from './messages/Chats';
 import SongDetail from "./songs/components/SongDetail";
+import LikeList from './songs/components/LikeList';
 import RegisterForm from "./users/RegisterForm";
 import ActiveChat from './messages/ActiveChat';
 import ChatDetails from "./messages/ChatDetails";
@@ -25,6 +26,7 @@ function App() {
               <Route exact path="/me" element={<Users />} />
               <Route exact path="/register" element={<RegisterForm />} />
               <Route path="/songs/:id" element={<SongDetail />} />
+              <Route path="/songs/:id/likes" element={<LikeList />} />
               <Route path='/chats'>
                 <Route index element={<Chats />} />
                 <Route path=':id'>

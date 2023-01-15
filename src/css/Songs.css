@@ -1,12 +1,21 @@
 .songCard {
-  border: 1px solid #851ff8;
-  border-radius: 5px;
+  border: 2px solid #851ff8;
+  border-radius: 10px;
   padding: 1.5em;
   margin-bottom: 1em;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .songCard img {
   max-width: 150px;
+}
+
+.likeCard {
+  border: 2px solid #5343f1;
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .cardContent {
@@ -21,7 +30,7 @@
 }
 
 .btnAddSong {
-  border: 1.5px solid #851ff8;
+  border: 2px solid #851ff8;
   background-color: #edebfe;
   color: white;
   border-radius: 50%;
@@ -54,6 +63,10 @@
 
 .darkBlueText:hover {
   color: #851ff8;
+}
+
+.bgDarkBlue {
+  background-color: #5343f1;
 }
 
 .avoidInline {

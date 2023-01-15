@@ -36,11 +36,11 @@ function SearchForm({ spotifyBtn = false, querySearch }) {
 
   return (
     <div className="row">
-      <div className="col-8 offset-2">
+      <div className="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
         <div className="input-group mb-3">
           <input
             type="text"
-            className="form-control border-purple"
+            className="form-control border-blue border-2px text-blue rounded-3"
             placeholder="Search song"
             aria-label="Songs name"
             aria-describedby="Songs name"
@@ -48,7 +48,7 @@ function SearchForm({ spotifyBtn = false, querySearch }) {
             onChange={(event) => setQuery(event.target.value)}
           />
           <button
-            className="btn border-purple text-purple"
+            className="btn bg-blue border-blue border-2px text-purple rounded-3 ms-1"
             type="button"
             id="button-addon2"
             title="Search"
@@ -59,13 +59,13 @@ function SearchForm({ spotifyBtn = false, querySearch }) {
         </div>
       </div>
       {spotifyBtn && (
-        <div className="col-4 offset-4 text-center">
+        <div className="col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 text-center">
           <button
             type="button"
-            className="btn border-purple text-purple bg-blue"
+            className="btn border-blue text-blue bg-blue fw-semibold"
             onClick={() => searchSongs("/api/v1/songs/spotify?title=", true)}
           >
-            Search on Spotify
+            <i className="bi bi-spotify text-dark"></i> Search on Spotify
           </button>
         </div>
       )}
