@@ -1,0 +1,24 @@
+.rooms-paginator {
+  display: flex;
+  align-items: center;
+}
+
+.btn-circular {
+  margin: .5em;
+  border-radius: 50%;
+  font-size: 24px;
+  padding: .2em;
+  background-color: #edebfe;
+  transition: 300ms all;
+}
+
+.btn-circular-previous {
+  transform: rotate(180deg);
+}
+
+.btn-circular:hover {
+  cursor: pointer;
+  background-color: #786cf7;
+  color: #edebfe;
+  
+}

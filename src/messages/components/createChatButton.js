@@ -12,8 +12,8 @@ export default function CreateChatButton({ song, participantId }) {
     try {
       const response = await roomService.createRoom(
         token,
-        song.title,
-        `Chat para hablar sobre la canción ${song.title}`,
+        song.name,
+        `Chatting about ${song.title}`,
         song.id,
         [participantId]
       )

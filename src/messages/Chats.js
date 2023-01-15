@@ -18,10 +18,12 @@ export default function Chat() {
 
   const token = localStorage.getItem('token')
 
+  const MAX_ROWS = 5
+
   useEffect(() => {
     async function getRoomList() {
       try {
-        const response = await roomService.getRooms(token, currentPage, 3);
+        const response = await roomService.getRooms(token, currentPage, MAX_ROWS);
         if (response.success) {
           const { content, totalElements, totalPages } = response;
           const currentPage = parseInt(response.currentPage);
@@ -47,7 +49,7 @@ export default function Chat() {
   }
 
   if (rooms.length <= 0) {
-    return <h4 className='text-center'>No se han encontrado salas</h4>
+    return <span className='text-center'>No chats have been found</span>
   }
 
   if (errorMessage != null) {

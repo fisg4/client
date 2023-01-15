@@ -2,23 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import LikedSongs from './LikedSongs';
 import DeleteButton from './components/DeleteButton';
+import '../css/users/LikeButton.css'
+import UserRooms from '../messages/components/userRooms';
 
-export default function Users(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); // Update initial value to an empty object
+export default function Users({logged, userTest}) {
+  const [isLoggedIn, setIsLoggedIn] = useState(logged ?? false);
+  const [user, setUser] = useState(userTest ?? null); // Update initial value to an empty object
   const [errorMessage, setErrorMessage] = useState('');
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const tokenExpireDefault = new Date(new Date().getTime() + 1000 * 60 * 60); // 1 hour
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const tokenExpired = queryParams.get('tokenExpired');
+    if (tokenExpired === 'true') {
+      setErrorMessage('Your session has expired. Please log in again.');
+    }
     // Check if user state variable is empty
     if (user == null) {
       const accessToken = localStorage.getItem('token');
       if (accessToken){
-        console.log('accessToken', accessToken);
         setProfile();
       }
     }
@@ -61,12 +68,12 @@ export default function Users(props) {
       }else{
         const data = await response.json();
         localStorage.setItem('token', data.accessToken);
+        localStorage.setItem('tokenExpireDate', tokenExpireDefault);
         setProfile();
         setIsLoggedIn(true);
         setErrorMessage('');
         // reload page
         window.location.reload();
-        console.log(response.data);
       }
     } catch (error) {
       setErrorMessage('Invalid email or password');
@@ -82,6 +89,7 @@ export default function Users(props) {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('tokenExpireDate');
     // reload page
     window.location.reload();
   }
@@ -120,7 +128,6 @@ export default function Users(props) {
             setPassword('');
             setConfirmPassword('');
             window.location.reload();
-          
         };
     }
   }
@@ -141,10 +148,6 @@ export default function Users(props) {
           </div>
           {showUpdateForm ? (
             <div class="mt-2">
-
-
-
-
               <Card className='d-flex justify-content-center w-50 mx-auto'>
                 <CardBody>
                   <CardTitle className='display-4 text-center'>Edit your info</CardTitle>
@@ -205,8 +208,15 @@ export default function Users(props) {
             </div>
           ) : null}
         </div>
-        <div class="row mb-3 w-75 mx-auto">
-          <h5>Liked songs <i className="bi bi-heart-fill heart-filled" />:</h5>
+        <br>
+        </br>
+        <div class="row mb-1 w-75 mx-auto text-center">
+          <UserRooms />
+        </div>
+        <br>
+        </br>
+        <div class="row mb-1 w-75 mx-auto text-center">
+          <h5><i className="bi bi-heart-fill heart-filled" /> Liked songs <i className="bi bi-heart-fill heart-filled" /></h5>
         </div>
         <LikedSongs />
         <div class="mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -220,12 +230,12 @@ export default function Users(props) {
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
           <CardBody>
-            <Form onSubmit={handleSubmit}>
+            <Form data-testid="login-form" onSubmit={handleSubmit}>
               <FormGroup>
-                <Input type="text" name="email" placeholder="Email" />
+                <Input required type="text" name="email" placeholder="Email" />
               </FormGroup>
               <FormGroup>
-                <Input type="password" name="password" placeholder="Password" />
+                <Input required type="password" name="password" placeholder="Password" />
               </FormGroup>
               <Button className="text-center" type="submit">Log in</Button>
               {errorMessage && <div class="text-center mt-3 text-danger">{errorMessage}</div>}
