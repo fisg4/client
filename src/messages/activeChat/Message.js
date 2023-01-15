@@ -52,6 +52,7 @@ export default function Message({ token, user, users, message }) {
     try {
       const response = await messageService.modifyMessage(token, message._id, text);
       setText(response.content.text);
+      setTranslatedText('');
       setToggleEditable(false);
     } catch (err) {
       setText(message.text);
