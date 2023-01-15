@@ -5,9 +5,9 @@ import DeleteButton from './components/DeleteButton';
 import '../css/users/LikeButton.css'
 import UserRooms from '../messages/components/userRooms';
 
-export default function Users(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); // Update initial value to an empty object
+export default function Users({logged, userTest}) {
+  const [isLoggedIn, setIsLoggedIn] = useState(logged ?? false);
+  const [user, setUser] = useState(userTest ?? null); // Update initial value to an empty object
   const [errorMessage, setErrorMessage] = useState('');
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [email, setEmail] = useState('');
@@ -230,7 +230,7 @@ export default function Users(props) {
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
           <CardBody>
-            <Form onSubmit={handleSubmit}>
+            <Form data-testid="login-form" onSubmit={handleSubmit}>
               <FormGroup>
                 <Input required type="text" name="email" placeholder="Email" />
               </FormGroup>
