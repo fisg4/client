@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: fastmusik
   labels:
     {{- include "fastmusik.labels" . | nindent 4 }}
-    app.kubernetes.io/component: frontend
+    app.kubernetes.io/component: fastmusik
 spec:
-  replicas: {{ .Values.frontend.replicaCount }}
+  replicas: {{ .Values.fastmusik.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: frontend
+      app.kubernetes.io/name: fastmusik
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: frontend
+        app.kubernetes.io/name: fastmusik
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       terminationGracePeriodSeconds: 0
       containers:
-        - name: frontend
-          image: {{ .Values.frontend.image }}:{{ .Values.tag }}
+        - name: fastmusik
+          image: {{ .Values.fastmusik.image }}
           ports:
             - name: http
               containerPort: 80

@@ -1,5 +1,3 @@
-tag: dev
-
-frontend:
+fastmusik:
   replicaCount: 1
-  image: okteto.dev/frontend
+  image: okteto.dev/fastmusik
