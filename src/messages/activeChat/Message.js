@@ -5,15 +5,11 @@ import messageService from '../services/messageService';
 import '../../css/messages/activeChat/Message.css'
 
 import {
-  Button, Modal, ModalFooter,
-  ModalHeader, ModalBody
+  Button, Modal, ModalBody
 } from "reactstrap"
 
-export default function Message({ message }) {
+export default function Message({token, user, message }) {
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MmIyNjQ5YjJlNzA0NjRmMTEzZDQwYyJ9.WlWiI1BFoHJ_B13Yte30ZAMfZvIf5hzMqBfTWBs22m0';
-
-  const [currentUser, setCurrentUser] = useState('562b2649b2e70464f113d40c');
   const [text, setText] = useState(message.text);
   const [reason, setReason] = useState('');
 
@@ -61,11 +57,10 @@ export default function Message({ message }) {
 
   return (
     <React.Fragment>
-      <div className={`message-container ${message.userId === currentUser ? 'mine' : ''}`}>
-
+      <div className={`message-container ${message.userId === user?.id ? 'mine' : ''}`}>
         <div ref={menuRef}>
           {toggleActions &&
-            <div className={`message-actions ${message.userId === currentUser ? 'my-actions' : ''}`}>
+            <div className={`message-actions ${message.userId === user?.id ? 'my-actions' : ''}`}>
               <div className='message-action' onClick={toggle}>Report this message</div>
               <hr></hr>
               <div className='message-action' onClick={() => translateMessage(message)}>Translate this message</div>
@@ -77,7 +72,7 @@ export default function Message({ message }) {
           }
         </div>
 
-        <BsThreeDotsVertical className={`toggle-message-actions ${message.userId === currentUser ? 'toggle-message-actions-mine' : ''}`} onClick={() => setToggleActions(!toggleActions)} />
+        <BsThreeDotsVertical className={`toggle-message-actions ${message.userId === user?.id ? 'toggle-message-actions-mine' : ''}`} onClick={() => setToggleActions(!toggleActions)} />
         <div className='message-participant'>
           {message.userId}
         </div>
