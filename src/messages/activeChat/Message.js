@@ -43,7 +43,7 @@ export default function Message({ token, user, users, message }) {
       const response = await messageService.translateMessage(token, message._id);
       setTranslatedText(response.content.translatedText);
     } catch (err) {
-      alert('No se pudo realizar la traducción');
+      alert('The message could not be translated');
     }
 
   }
@@ -56,7 +56,7 @@ export default function Message({ token, user, users, message }) {
       setToggleEditable(false);
     } catch (err) {
       setText(message.text);
-      alert('No se pudo realizar la edición :(');
+      alert('The edition could not be done');
     }
   }
 
@@ -99,19 +99,23 @@ export default function Message({ token, user, users, message }) {
         <div className='message-participant'>
           {author?.username || message.userId}
         </div>
-        <div className='message-text'>
-          {!toggleEditable ?
-            text :
-            <div className='edit-container'>
-              <input className='input-edit-message' value={text} onChange={(event) => setText(event.target.value)} />
-              <button onClick={() => modifyMessage()}>Editar</button>
-            </div>
-          }
-          {translatedText && <><br></br> <i><span>Texto traducido: {translatedText}</span></i></>}
-        </div>
+        {message?.reportedBy?.isBanned ?
+          <i>This message has been banned</i>
+        :
+          <div className='message-text'>
+            {!toggleEditable ?
+              text :
+              <div className='edit-container'>
+                <input className='input-edit-message' value={text} onChange={(event) => setText(event.target.value)} />
+                <button onClick={() => modifyMessage()}>Editar</button>
+              </div>
+            }
+            {translatedText && <><br></br> <i><span>Translated text: {translatedText}</span></i></>}
+          </div>
+        }
         <div className='message-time'>
-          {new Date(message.createdAt).getHours()}:{new Date(message.createdAt).getMinutes()}
-        </div>
+            {new Date(message.createdAt).getHours()}:{new Date(message.createdAt).getMinutes()}
+          </div>
       </div>
       <Modal isOpen={modal}
         toggle={toggle}

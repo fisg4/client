@@ -45,7 +45,7 @@ export default function ChatDetails() {
     if (response) {
       navigate('/chats')
     } else {
-      alert('No se ha podido eliminar esa sala')
+      alert('The chat could not be deleted')
     }
   }
 
@@ -59,7 +59,7 @@ export default function ChatDetails() {
       setEditable(false)
       setName(room.name)
       setDescription(room.description)
-      alert('No se ha podido modificar esta sala')
+      alert('The chat info could not be modified')
     }
   }
 
@@ -97,7 +97,8 @@ export default function ChatDetails() {
                 </>}
               </div>
             </div>
-            <div className='actions-container'>
+            {userIsAdmin() && 
+              <div className='actions-container'>
               {
                 !isEditable ?
                   <>
@@ -113,6 +114,7 @@ export default function ChatDetails() {
                     </button></>
               }
             </div>
+            }
           </div>
         </div>
         <div className='participants'>
