@@ -50,8 +50,8 @@ describe("Search Song Tests", () => {
       </BrowserRouter>,
       { container }
     );
-    expect(container.querySelector("button.bg-blue").textContent).toBe(
-      "Search on Spotify"
+    expect(container.querySelector("button.bg-blue.fw-semibold").innerHTML).toBe(
+      '<i class="bi bi-spotify text-dark"></i> Search on Spotify'
     );
     unmount();
   });

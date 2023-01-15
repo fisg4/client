@@ -46,7 +46,7 @@ describe("Songs List Tests", () => {
     );
     expect(container.querySelector("img").src).toBe(song.albumCover);
     expect(container.querySelector("source").src).toBe(song.audioUrl);
-    expect(container.querySelector("i").className).toBe("bi bi-plus-lg");
+    expect(container.querySelector("i").className).toBe("bi bi-plus-lg fs-3");
     unmount();
   });
 
@@ -58,7 +58,7 @@ describe("Songs List Tests", () => {
       { container }
     );
     expect(container.querySelector("i").className).toBe(
-      "bi bi-music-note-beamed"
+      "bi bi-music-note-beamed fs-3"
     );
     unmount();
   });
