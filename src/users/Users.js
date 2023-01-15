@@ -220,7 +220,7 @@ export default function Users(props) {
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
           <CardBody>
-            <Form onSubmit={handleSubmit}>
+            <Form data-testid="login-form" onSubmit={handleSubmit}>
               <FormGroup>
                 <Input required type="text" name="email" placeholder="Email" />
               </FormGroup>
