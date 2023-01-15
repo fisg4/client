@@ -12,6 +12,7 @@ import LikeList from './songs/components/LikeList';
 import RegisterForm from "./users/RegisterForm";
 import ActiveChat from './messages/ActiveChat';
 import ChatDetails from "./messages/ChatDetails";
+import CreateTicket from "./support/component/CreateTicket";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                   <Route path='details' element={<ChatDetails />} />
                 </Route>
               </Route>
+              <Route path="/support" element={<CreateTicket />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
             <br />
