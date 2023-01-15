@@ -5,13 +5,13 @@
 }
 
 .active-chat-header-container {
-  padding: 1.5em;
+  padding: 1em;
   box-shadow: rgba(99, 99, 99, 0.2) 0 -2px 8px 0;
   display: flex;
   gap: 0.2em;
   align-items: center;
   transition: 300ms all;
-
+  text-decoration: none !important;
 }
 
 .active-chat-header-container:hover {
@@ -22,7 +22,7 @@
 
 .active-chat-header-avatar {
   width: 15vw;
-  height: 15vw;
+  height: 19vw;
   border-radius: 50%;
   margin: 1em;
 }

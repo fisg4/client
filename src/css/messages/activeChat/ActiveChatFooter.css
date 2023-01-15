@@ -1,9 +1,6 @@
 .active-chat-footer-container {
   padding: 1em;
   box-shadow: rgba(100, 100, 111, 0.2) 0 2px 5px 0;
-}
-
-form {
   display: flex;
   align-items: center;
   gap: 1em;
