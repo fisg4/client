@@ -47,7 +47,7 @@ export default function Chat() {
   }
 
   if (rooms.length <= 0) {
-    return <h4 className='text-center'>No se han encontrado salas</h4>
+    return <span className='text-center'>No chats have been found</span>
   }
 
   if (errorMessage != null) {

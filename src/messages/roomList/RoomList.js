@@ -9,7 +9,7 @@ export default function RoomList({ rooms }) {
       {
         rooms.map((room) => {
           return (
-            <Link className='room-link' to={`${room._id}`} key={room._id}>
+            <Link className='room-link' to={`/chats/${room._id}`} key={room._id}>
               <Room room={room}/>
             </Link>
           )
