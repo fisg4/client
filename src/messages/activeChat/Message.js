@@ -73,21 +73,30 @@ export default function Message({ token, user, users, message }) {
       <div className={`message-container ${message.userId === user?.id ? 'mine' : ''}`}>
         <div ref={menuRef}>
           {toggleActions &&
-            <div className={`message-actions ${message.userId === user?.id ? 'my-actions' : ''}`}>
-              <div className='message-action' onClick={toggle}>Report this message</div>
-              <hr></hr>
-              <div className='message-action' onClick={() => translateMessage(message)}>Translate this message</div>
-              <hr></hr>
-              <div className='message-action' onClick={() =>
-                setToggleEditable(true)
-              }>Edit this message</div>
+            <div className={`message-actions ${message.userId === user?.id ? 'my-actions' : 'other-actions'}`}>
+              {
+                message.userId !== user?.id &&
+                <>
+                  <div className='message-action' onClick={toggle}>Report this message</div>
+                  <hr></hr>
+                  <div className='message-action' onClick={() => translateMessage(message)}>Translate this message</div>
+                </>
+              }
+              {
+                message.userId === user?.id &&
+                <>
+                  <div className='message-action' onClick={() =>
+                    setToggleEditable(true)
+                  }>Edit this message</div>
+                </>
+              }
             </div>
           }
         </div>
 
         <BsThreeDotsVertical className={`toggle-message-actions ${message.userId === user?.id ? 'toggle-message-actions-mine' : ''}`} onClick={() => setToggleActions(!toggleActions)} />
         <div className='message-participant'>
-          {author?.username || message.userId }
+          {author?.username || message.userId}
         </div>
         <div className='message-text'>
           {!toggleEditable ?

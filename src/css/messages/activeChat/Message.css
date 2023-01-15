@@ -53,11 +53,15 @@
   position: absolute;
   top: 0;
   transform: translateY(50%);
-  transform: translateX(100%);
+  transform: translateX(110%);
   border-radius: 5px;
   background-color: #784fff;
   padding: 1em;
   z-index: 1;
+}
+
+.other-actions {
+  right: 0;
 }
 
 .my-actions {
@@ -97,7 +101,7 @@
 
 .message-participant {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .message-text {
