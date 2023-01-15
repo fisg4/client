@@ -57,6 +57,25 @@ const messageService = {
     } 
   
     return response.json(); 
+  },
+  translateMessage: async function(token, messageId, reason) {
+    const request = new Request(`${BASE_PATH}/${messageId}/translate`, {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        reason
+      })
+    });
+  
+    const response = await fetch(request);
+    if (!response.ok) {
+      throw Error("Response not valid. " + response.json());
+    } 
+  
+    return response.json(); 
   }
 }
 
