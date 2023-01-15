@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import LikedSongs from './LikedSongs';
 import DeleteButton from './components/DeleteButton';
+import '../css/users/LikeButton.css'
 
 export default function Users(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +19,6 @@ export default function Users(props) {
     if (user == null) {
       const accessToken = localStorage.getItem('token');
       if (accessToken){
-        console.log('accessToken', accessToken);
         setProfile();
       }
     }
@@ -66,7 +66,6 @@ export default function Users(props) {
         setErrorMessage('');
         // reload page
         window.location.reload();
-        console.log(response.data);
       }
     } catch (error) {
       setErrorMessage('Invalid email or password');
@@ -120,7 +119,6 @@ export default function Users(props) {
             setPassword('');
             setConfirmPassword('');
             window.location.reload();
-          
         };
     }
   }
@@ -205,8 +203,10 @@ export default function Users(props) {
             </div>
           ) : null}
         </div>
-        <div class="row mb-3 w-75 mx-auto">
-          <h5>Liked songs <i className="bi bi-heart-fill heart-filled" />:</h5>
+        <br>
+        </br>
+        <div class="row mb-1 w-75 mx-auto text-center">
+          <h5><i className="bi bi-heart-fill heart-filled" /> Liked songs <i className="bi bi-heart-fill heart-filled" /></h5>
         </div>
         <LikedSongs />
         <div class="mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -222,10 +222,10 @@ export default function Users(props) {
           <CardBody>
             <Form onSubmit={handleSubmit}>
               <FormGroup>
-                <Input type="text" name="email" placeholder="Email" />
+                <Input required type="text" name="email" placeholder="Email" />
               </FormGroup>
               <FormGroup>
-                <Input type="password" name="password" placeholder="Password" />
+                <Input required type="password" name="password" placeholder="Password" />
               </FormGroup>
               <Button className="text-center" type="submit">Log in</Button>
               {errorMessage && <div class="text-center mt-3 text-danger">{errorMessage}</div>}
