@@ -3,6 +3,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input
 import LikedSongs from './LikedSongs';
 import DeleteButton from './components/DeleteButton';
 import '../css/users/LikeButton.css'
+import UserRooms from '../messages/components/userRooms';
 
 export default function Users(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -206,6 +207,11 @@ export default function Users(props) {
     </Card>
             </div>
           ) : null}
+        </div>
+        <br>
+        </br>
+        <div class="row mb-1 w-75 mx-auto text-center">
+          <UserRooms />
         </div>
         <br>
         </br>
