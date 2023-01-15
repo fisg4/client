@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: fastmusik
-          image: {{ .Values.fastmusik.image }}:{{ .Values.tag }}
+          image: {{ .Values.fastmusik.image }}
           ports:
             - name: http
               containerPort: 80

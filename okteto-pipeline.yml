@@ -1,3 +1,9 @@
+icon: https://avatars.githubusercontent.com/u/118214443
+
+build:
+  fastmusik:
+    context: .
+
 deploy:
- - okteto build -t okteto.dev/fastmusik:${OKTETO_GIT_COMMIT} .
- - helm upgrade --install fastmusik chart --set tag=${OKTETO_GIT_COMMIT}
+  - helm upgrade --install fastmusik chart
+    --set fastmusik.image=${OKTETO_BUILD_FASTMUSIK_IMAGE}
