@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import '../../css/messages/activeChat/ActiveChatBody.css'
 import Message from './Message'
 
-export default function ActiveChatBody({ token, user, messages }) {
+export default function ActiveChatBody({ token, user, users, messages }) {
 
   const ScrollToBottom = () => {
     const elementRef = useRef();
@@ -24,13 +24,13 @@ export default function ActiveChatBody({ token, user, messages }) {
           reversedMessages.map((message, index) => {
             if ((index !== 0) && (new Date(message.createdAt).getDate() === new Date(reversedMessages[index - 1].createdAt).getDate())) {
               return (
-                <Message key={message._id} message={message} token={token} user={user}/>
+                <Message key={message._id} message={message} token={token} user={user} users={users} />
               )
             } else {
               return (
                 <React.Fragment key={message._id}>
                   <div className='day'>{new Date(message.createdAt).getDate()}&nbsp;{getMonth(message.createdAt)}&nbsp;{new Date(message.createdAt).getFullYear()}</div>
-                  <Message key={message._id} message={message} token={token} user={user} />
+                  <Message key={message._id} message={message} token={token} user={user} users={users} />
                 </React.Fragment>
               )
             }

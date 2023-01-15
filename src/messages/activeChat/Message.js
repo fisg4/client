@@ -8,10 +8,11 @@ import {
   Button, Modal, ModalBody
 } from "reactstrap"
 
-export default function Message({ token, user, message }) {
+export default function Message({ token, user, users, message }) {
 
   const [text, setText] = useState(message.text);
   const [reason, setReason] = useState('');
+  const author = users.find(user => user.id === message.userId);
 
   /* Toggling */
   const [toggleActions, setToggleActions] = useState(false);
@@ -86,7 +87,7 @@ export default function Message({ token, user, message }) {
 
         <BsThreeDotsVertical className={`toggle-message-actions ${message.userId === user?.id ? 'toggle-message-actions-mine' : ''}`} onClick={() => setToggleActions(!toggleActions)} />
         <div className='message-participant'>
-          {message.userId}
+          {author?.username || message.userId }
         </div>
         <div className='message-text'>
           {!toggleEditable ?

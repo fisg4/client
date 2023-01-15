@@ -15,6 +15,29 @@
   transform: translateX(100vw);
 }
 
+.song-info {
+  border: 1.5px solid #851ff8!important;
+  background-color: #edebfe!important;
+  color: white!important;
+  color: #851ff8!important;
+}
+
+.btn-msg {
+  border: 1.5px solid #851ff8!important;
+  background-color: #edebfe!important;
+  color: white!important;
+  color: #851ff8!important;
+}
+
+.btn-msg span {
+  font-size: 1.4em!important;
+}
+
+.btn-msg:hover {
+  background-color: #851ff8;
+  color: #edebfe;
+}
+
 @media (min-width: 768px) {
   .active-chat-container {
     margin: 3em auto;

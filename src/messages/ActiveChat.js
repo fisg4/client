@@ -20,16 +20,83 @@ export default function ActiveChat() {
   const user = JSON.parse(localStorage.getItem('user'))
 
   const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([])
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [newMessage, setNewMessage] = useState({});
 
+  async function fetchSong(songId) {
+    try {
+      const request = new Request("/api/v1/songs/" + songId, {
+        method: "GET",
+        headers: {},
+      });
+  
+      const response = await fetch(request);
+  
+      if (!response.ok) {
+        throw Error("Response not valid.")
+      }
+  
+      return await response.json();
+    } catch (error) {
+      return null
+    }
+  }
+
+  async function fetchUser(userId) {
+    try {
+      const request = new Request("/api/v1/users/profile/" + userId, {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+      });
+  
+      const response = await fetch(request);
+
+      if (!response.ok) {
+        throw Error("Response not valid.")
+      }
+  
+      return await response.json();
+    } catch (error) {
+      return null
+    }
+  }
+
+  async function completeParticipantInfo(participant, loggedUser) {
+    if (participant.userId === loggedUser.id) {
+      const { role, ...info } = user;
+      return { ...participant, ...info }
+    } else {
+      const userResponse = await fetchUser(participant.userId)
+      if (userResponse) {
+        const { role, ...info } = userResponse;
+        return { ...participant, ...info }
+      }
+      return { ...participant }
+    }
+  }
+
   useEffect(() => {
-    async function getRoom() {
+    async function getRoom(loggedUser) {
       try {
+        // get room, its messages and its song
         const roomsResponse = await roomService.getRoom(token, id);
         const messagesResponse = await roomService.getRoomMessages(token, id);
-        dispatch(setRoom(roomsResponse.content));
+        const song = await fetchSong(roomsResponse.content.songId)
+        // get info about participants
+        const users = [...roomsResponse.content.participants]
+        const participantPromises = users.map(async user => {
+          return completeParticipantInfo(user, loggedUser)
+        });
+        const participants = await Promise.all(participantPromises)
+        const room = { ...roomsResponse.content, song, participants }
+        
+        dispatch(setRoom(room));
+        setUsers(participants);
         setMessages(messagesResponse.content);
       } catch (error) {
         setErrorMessage("Error al obtener la información del chat");
@@ -41,7 +108,7 @@ export default function ActiveChat() {
       return
     }
 
-    getRoom();
+    getRoom(user);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, newMessage]);
 
@@ -63,7 +130,7 @@ export default function ActiveChat() {
   return (
     <div className='active-chat-container'>
       <ActiveChatHeader room={room}></ActiveChatHeader>
-      <ActiveChatBody token={token} user={user} messages={messages}></ActiveChatBody>
+      <ActiveChatBody token={token} user={user} users={users} messages={messages}></ActiveChatBody>
       <ActiveChatFooter sendMessage={sendMessage}></ActiveChatFooter>
     </div>
   )
