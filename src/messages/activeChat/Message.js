@@ -8,7 +8,7 @@ import {
   Button, Modal, ModalBody
 } from "reactstrap"
 
-export default function Message({token, user, message }) {
+export default function Message({ token, user, message }) {
 
   const [text, setText] = useState(message.text);
   const [reason, setReason] = useState('');
@@ -24,6 +24,9 @@ export default function Message({token, user, message }) {
 
   /* Refs */
   const menuRef = useRef();
+
+  /* Messages */
+  const [reportMessage, setReportMessage] = useState('');
 
   useEffect(() => {
     let handler = (event) => {
@@ -55,6 +58,15 @@ export default function Message({token, user, message }) {
     }
   }
 
+  const sendReport = async () => {
+    try {
+      await messageService.reportMessage(token, message._id, reason);
+      setReportMessage(<div className='alert alert-success'>Report sent successfully</div>);
+    } catch (err) {
+      setReportMessage(<div className='alert alert-danger'>Error while reporting message</div>);
+    }
+  }
+
   return (
     <React.Fragment>
       <div className={`message-container ${message.userId === user?.id ? 'mine' : ''}`}>
@@ -79,12 +91,12 @@ export default function Message({token, user, message }) {
         <div className='message-text'>
           {!toggleEditable ?
             text :
-            <>
-              <input value={text} onChange={(event) => setText(event.target.value)} />
+            <div className='edit-container'>
+              <input className='input-edit-message' value={text} onChange={(event) => setText(event.target.value)} />
               <button onClick={() => modifyMessage()}>Editar</button>
-            </>
+            </div>
           }
-          {translatedText}
+          {translatedText && <><br></br> <i><span>Texto traducido: {translatedText}</span></i></>}
         </div>
         <div className='message-time'>
           {new Date(message.createdAt).getHours()}:{new Date(message.createdAt).getMinutes()}
@@ -93,10 +105,13 @@ export default function Message({token, user, message }) {
       <Modal isOpen={modal}
         toggle={toggle}
         modalTransition={{ timeout: 0 }}>
-        <ModalBody>
-          Include a reason:
-          <input value={reason} onChange={(event) => setReason(event.target.value)} />
-          <Button>Send report</Button>
+        <ModalBody className='modal-body'>
+          <div className='modal-title'>Include a reason:</div>
+          <div className='alert-report'>{reportMessage}</div>
+          <div className='modal-form'>
+            <textarea value={reason} onChange={(event) => setReason(event.target.value)} />
+            <Button onClick={sendReport}>Send report</Button>
+          </div>
         </ModalBody>
       </Modal>
     </React.Fragment >

@@ -31,7 +31,7 @@ const messageService = {
         reason
       })
     });
-  
+    
     const response = await fetch(request);
     if (!response.ok) {
       throw Error("Response not valid. " + response.json());

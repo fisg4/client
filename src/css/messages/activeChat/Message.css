@@ -12,6 +12,43 @@
   word-break: break-word;
 }
 
+.edit-container {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+.edit-container > *{
+  padding: .3em;
+  outline: none;
+
+}
+
+.input-edit-message {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #edebfe;
+  border-radius: 5px;
+}
+
+.edit-container > button {
+  background-color: #edebfe;
+  border-radius: 5px;
+  color: #784fff;
+  border: 1px solid gray;
+  font-weight: 600;
+  transition: 300ms all;
+}
+
+.edit-container > button:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.alert-report {
+  max-width: 75%;
+  margin: 1em auto;
+}
+
 .message-actions {
   position: absolute;
   top: 0;
@@ -77,4 +114,27 @@
   right: 2px;
   font-size: 10px;
   color: #fff;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.modal-form {
+  margin: 1em;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+}
+
+.modal-form > textarea {
+  width: 75%;
+  height: 20vh;
+  margin: 0 auto;
+}
+
+.modal-form > button {
+  width: fit-content;
+  margin: 0 auto;
 }
