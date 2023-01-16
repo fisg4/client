@@ -27,7 +27,12 @@ function LikedSongs() {
   // }
 
   if (!songs || !songs.length) {
-    return <div>No songs liked yet</div>;
+    return (
+      <div class="text-center mb-3">No songs liked yet</div>
+      
+    );
+
+
   }else{
       return (
         <div className='justify-content-center mx-auto text-center'>

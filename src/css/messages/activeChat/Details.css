@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+.chat-details-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 3em;
+  margin-top: 3em;
+}
+
+.song-info {
+  padding: 1em;
+}
+
+.song-main-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+  height: 70%;
+}
+
+.song-header {
+  font-weight: 600;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.room-info {
+  box-shadow: rgba(120, 108, 247, 0.35) 0px 5px 15px;
+  width: 60vw;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.chat-details-header {
+  border: 1px solid #786cf7;
+  border-radius: 5px 5px 0 0;
+  padding: 1em;
+}
+
+.edit-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1em;
+}
+
+.actions-container>* {
+  padding: .2em;
+  margin: .25em;
+}
+
+.edit-icon {
+  background-color: #786cf7;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 60;
+  font-size: 2.5rem;
+  transition: 300ms all;
+}
+
+.delete-icon {
+  border: 2px solid #786cf7;
+  color: #786cf7;
+  border-radius: 5px;
+  font-weight: 60;
+  font-size: 2.5rem;
+  transition: 300ms all;
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+  background-color: #786cf7;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.edit-icon:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.chat-details-header-main-content {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.input-details {
+  margin: .25em;
+  padding: .5em;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #851ff8;
+  transition: 300ms all;
+}
+
+.input-details:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid #786cf7;
+}
+
+.participants {
+  padding: .5em;
+}
+
+.participants > * {
+  padding: .5em 1em;
+}
+
+.participants > .participant{
+  margin-left: 1em;
+}
+
+.participants-title {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .chat-details-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .chat-details-container > * {
+    width: 90%;
+  }
+  
+  .edit-container {
+    margin: 0;
+    flex-direction: column;
+  }
+
+  .input-details {
+    margin: .5em;
+    padding: .3em;
+  }
+
+  .chat-details-header-main-content {
+    flex-direction: column;
+  }
+
+}

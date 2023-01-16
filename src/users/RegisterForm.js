@@ -53,6 +53,7 @@ const RegisterForm = () => {
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
+              required
               type="email"
               name="email"
               id="email"
@@ -64,6 +65,7 @@ const RegisterForm = () => {
           <FormGroup>
             <Label for="username">Username</Label>
             <Input
+            required
               type="text"
               name="username"
               id="username"
@@ -75,6 +77,7 @@ const RegisterForm = () => {
           <FormGroup>
             <Label for="password">Password</Label>
             <Input
+            required
               type="password"
               name="password"
               id="password"
@@ -86,6 +89,7 @@ const RegisterForm = () => {
           <FormGroup>
             <Label for="confirmPassword">Confirm Password</Label>
             <Input
+            required
               type="password"
               name="confirmPassword"
               id="confirmPassword"

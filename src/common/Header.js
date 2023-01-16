@@ -2,6 +2,8 @@ import React from 'react';
 import logo from '../images/fastMusik_logo.png';
 import perfil from '../images/user-icon.png';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import TokenListener from './components/TokenListener';
+import UsernameListener from './components/UsernameListener';
 
 function Header() {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -10,6 +12,7 @@ function Header() {
   if (!user) {
     return (
       <>
+        <TokenListener />
         <header className="container">
           <div className="row mt-3">
             <div className="col-2 text-center mt-sm-1">
@@ -24,7 +27,7 @@ function Header() {
             </div>
             <div className="col-2 text-end py-2">
               <Link to="/me">
-                Log in
+                <UsernameListener />
                 <img src={perfil} className="img-fluid align-middle header-perfil" alt="Perfil" />
               </Link>
             </div>
@@ -36,6 +39,7 @@ function Header() {
   } else {
     return (
       <>
+        <TokenListener />
         <header className="container">
           <div className="row mt-3">
             <div className="col-2 text-center mt-sm-1">

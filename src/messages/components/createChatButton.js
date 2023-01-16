@@ -13,7 +13,7 @@ export default function CreateChatButton({ song, participantId }) {
       const response = await roomService.createRoom(
         token,
         song.title,
-        `Chat para hablar sobre la canción ${song.title}`,
+        `Chatting about ${song.title}`,
         song.id,
         [participantId]
       )
@@ -25,7 +25,7 @@ export default function CreateChatButton({ song, participantId }) {
       const { _id } = response.content
       navigate(`/chats/${_id}`)
     } catch (error) {
-      alert(`No se ha podido crear un chat para '${song.title}'`)
+      alert(`The chat for '${song.title}' could not be created`)
     }
   }
 

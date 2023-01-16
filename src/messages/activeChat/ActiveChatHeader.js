@@ -8,12 +8,11 @@ export default function ActiveChatHeader() {
   const { room } = useSelector(state => state.rooms);
 
   return (
-    <div className='active-chat-header-container'>
-      <img src={room?.img} alt='active-chat-header-avatar' className='active-chat-header-avatar'/>
+    <Link to={'details'} className='active-chat-header-container'>
+      <img src={room?.song?.albumCover} alt='active-chat-header-avatar' className='active-chat-header-avatar'/>
       <div className='active-chat-header-name'>
         <span className='d-block'>{room?.name}</span>
       </div>
-      <Link className='btn btn-sm btn-secondary' to={'details'}>Detalles</Link>
-    </div>
+    </Link>
   )
 }
