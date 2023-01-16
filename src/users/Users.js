@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import LikedSongs from './LikedSongs';
 import DeleteButton from './components/DeleteButton';
 import '../css/users/LikeButton.css'
@@ -93,7 +93,7 @@ export default function Users({logged, userTest}) {
     // reload page
     window.location.reload();
   }
-  
+
   const handleUpdate = async (event) => {
     event.preventDefault();
 
@@ -221,12 +221,12 @@ export default function Users({logged, userTest}) {
         <LikedSongs />
         <div class="mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
         <DeleteButton></DeleteButton>
-            
+
           </div>
-        
+
 
         </>
-        
+
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
           <CardBody>
@@ -246,4 +246,4 @@ export default function Users({logged, userTest}) {
       )}
     </div>
   );
-}  
+}

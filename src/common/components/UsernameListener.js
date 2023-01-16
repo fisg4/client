@@ -19,6 +19,6 @@ export default function UsernameListener() {
     return () => clearInterval(checkUser);
   }, []);
 
-return <a>{username}</a>;
+return <a href='#user'>{username}</a>;
 
 }

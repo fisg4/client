@@ -24,7 +24,6 @@ function LikeList() {
       const response = await fetch(request);
 
       if (!response.ok) {
-        navigate("/404");
         throw Error("Response not valid. " + response.status);
       }
 
