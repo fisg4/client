@@ -72,3 +72,13 @@
 .avoidInline {
   white-space: pre-wrap;
 }
+
+.bi-spotify {
+  color: #1db954 !important;
+}
+.bi-spotify::before {
+  background: black;
+  border-radius: 50%;
+  outline: 1px solid #1db954;
+  outline-offset: -.6px;
+}

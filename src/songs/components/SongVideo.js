@@ -1,9 +1,15 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setVideoRequestError } from "../slices/songMediaSlice";
 import EditVideoModal from "./EditVideoModal";
 
 function SongVideo({ song }) {
-  const media = useSelector((state) => state.songMedia);
-  const videoId = youtubeParser(media.videoUrl);
+  const dispatch = useDispatch();
+  const { videoUrl, videoRequestError } = useSelector((state) => state.songMedia);
+  const videoId = youtubeParser(videoUrl);
+
+  function onAlertClose() {
+    dispatch(setVideoRequestError(null));
+  }
 
   return (
     <>
@@ -12,6 +18,7 @@ function SongVideo({ song }) {
           <div className="ratio ratio-16x9 mt-lg-3">
             <iframe
               src={`https://www.youtube.com/embed/${videoId}`}
+              className="rounded shadow-sm"
               title="Song video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -30,7 +37,7 @@ function SongVideo({ song }) {
               </p>
               <div id="toastConfirmation" className="toast align-items-center border-purple bg-blue" role="alert" aria-live="assertive" aria-atomic="true">
                 <div className="d-flex">
-                  <div className="toast-body">
+                  <div className="toast-body fw-semibold">
                     Your request has been sent. Thank you!
                   </div>
                   <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -50,6 +57,19 @@ function SongVideo({ song }) {
             </>
           )}
         </>
+      )}
+      {videoRequestError !== null && (
+        <div className="my-3">
+          <div className="toast align-items-center border-0 bg-warning my-3 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="d-flex">
+              <div className="toast-body fw-semibold">
+                {videoRequestError}
+              </div>
+              <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"
+                onClick={onAlertClose}></button>
+            </div>
+          </div>
+        </div>
       )}
       <EditVideoModal songId={song?.id} />
     </>

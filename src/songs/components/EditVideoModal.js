@@ -1,11 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setVideoUrl, setVideoUrlInput } from "../slices/songMediaSlice";
+import { setVideoUrl, setVideoUrlInput, setVideoRequestError } from "../slices/songMediaSlice";
+import { youtubeParser } from "./SongVideo";
 
 function EditVideoModal({ songId }) {
     const dispatch = useDispatch();
     const media = useSelector((state) => state.songMedia);
 
     async function addVideo(endpoint, songId, newVideoUrl) {
+        if (!youtubeParser(newVideoUrl)) {
+            dispatch(setVideoRequestError("Please enter a valid YouTube URL."));
+            dispatch(setVideoUrlInput(""));
+            throw Error("Invalid YouTube URL.");
+        }
         const request = new Request(`${endpoint}`, {
             method: "PUT",
             headers: {
@@ -21,13 +27,22 @@ function EditVideoModal({ songId }) {
         const response = await fetch(request);
 
         if (!response.ok) {
+            dispatch(setVideoRequestError("There was a problem adding the video. Please try again."));
+            dispatch(setVideoUrlInput(""));
             throw Error("Response not valid. " + response.status);
         }
 
         dispatch(setVideoUrl(newVideoUrl));
+        dispatch(setVideoRequestError(null));
     }
 
     async function sendTicket(endpoint, ticket) {
+        if (!youtubeParser(ticket.videoUrl)) {
+            dispatch(setVideoRequestError("Please enter a valid YouTube URL."));
+            dispatch(setVideoUrlInput(""));
+            throw Error("Invalid YouTube URL.");
+        }
+
         const request = new Request(`${endpoint}`, {
             method: "POST",
             headers: {
@@ -40,9 +55,18 @@ function EditVideoModal({ songId }) {
         const response = await fetch(request);
 
         if (!response.ok) {
+            dispatch(setVideoRequestError(response.status === 401 ? (
+                "You may not have permission to send a support ticket."
+            ) : (
+                "There was a problem adding the video. Please try again."
+            ))
+            );
+            dispatch(setVideoUrlInput(""));
             throw Error("Response not valid. " + response.status);
         }
 
+        dispatch(setVideoRequestError(null));
+        dispatch(setVideoUrlInput(""));
         document.getElementById("toastConfirmation").classList.add("show");
     }
 
@@ -76,11 +100,15 @@ function EditVideoModal({ songId }) {
                                 type="button"
                                 className="btn border-purple text-purple bg-blue"
                                 data-bs-dismiss="modal"
-                                onClick={() => addVideo(
-                                    "/api/v1/songs",
-                                    songId,
-                                    document.getElementById("videoUrlInput").value
-                                )}
+                                onClick={() => {
+                                    addVideo(
+                                        "/api/v1/songs",
+                                        songId,
+                                        document.getElementById("videoUrlInput").value
+                                    )
+                                }
+                                }
+
                             >
                                 Confirm
                             </button>
@@ -90,16 +118,15 @@ function EditVideoModal({ songId }) {
                                 className="btn border-purple text-purple bg-blue"
                                 data-bs-dismiss="modal"
                                 onClick={() => {
-                                    if (media?.videoUrlInput !== "" && media?.videoUrlInput !== null && media?.videoUrlInput !== undefined) {
-                                        sendTicket(
-                                            "/api/v1/songs/ticket",
-                                            {
-                                                userId: JSON.parse(localStorage.getItem("user")).id,
-                                                songId: songId,
-                                                videoUrl: document.getElementById("videoUrlInput").value
-                                            }
-                                        );
-                                    }
+                                    sendTicket(
+                                        "/api/v1/songs/ticket",
+                                        {
+                                            userId: JSON.parse(localStorage?.getItem("user"))?.id,
+                                            songId: songId,
+                                            videoUrl: document.getElementById("videoUrlInput").value
+                                        }
+                                    );
+
                                 }}
                             >
                                 Confirm

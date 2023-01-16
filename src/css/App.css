@@ -4,39 +4,41 @@
 */
 
 .bg-blue {
-  background-color: #5443f11b!important;
+  background-color: #5443f11b !important;
 }
 
 .bg-purple {
-  background-color: #f5e3f892!important;
+  background-color: #f5e3f892 !important;
 }
+
 .border-purple {
-  border-color: #851ff8!important;
+  border-color: #851ff8 !important;
 }
 
 .border-blue {
-  border-color: #5343f1!important;
+  border-color: #5343f1 !important;
 }
 
 .border-2px {
-  border-width: 2px!important;
+  border-width: 2px !important;
 }
 
 .text-purple {
-  color: #851ff8!important;
+  color: #851ff8 !important;
 }
 
 .text-blue {
-  color: #5343f1!important;
+  color: #5343f1 !important;
 }
 
 .btn:hover {
-  background-color: #e7ddfd!important;
-  border-color:  #6a17c8!important;
-  color: #6a17c8!important;
+  background-color: #e7ddfd !important;
+  border-color: #6a17c8 !important;
+  color: #6a17c8 !important;
 }
 
-.form-control:focus, select:focus {
+.form-control:focus,
+select:focus {
   color: #081a7a !important;
   border-color: #e1bee7b8 !important;
   box-shadow: 0 0 0 0.2rem #9575cde8 !important;
@@ -47,21 +49,66 @@
 }
 
 @media (min-width: 768px) {
-    .header-logo {
-        width: 60%;
-    }
+  .header-logo {
+    width: 60%;
+  }
 
-    .header-perfil {
-      width: 70%;
-    }
+  .header-perfil {
+    width: 70%;
+  }
 }
 
 @media (min-width: 992px) {
   .header-logo {
-      width: 40%;
+    width: 40%;
   }
 
   .header-perfil {
     width: 40%;
+  }
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  animation: spin 1.2s
+    linear infinite;
+}
+
+.loader::after,
+.loader::before {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+}
+
+.loader::before {
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(10deg,
+      #ad0feb 20%,
+      #841ff8 40%,
+      #5443f1 60%,
+      #0f7cf1 80%,
+      #4374f1 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader::after {
+  width: 85%;
+  height: 85%;
+  background-color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -4,6 +4,8 @@ const initialState = {
   songs: [],
   spotify: null,
   query: "",
+  queryError: null,
+  deleteError: null,
 };
 
 export const songsSlice = createSlice({
@@ -19,9 +21,15 @@ export const songsSlice = createSlice({
     saveQuery: (state, action) => {
       state.query = action.payload;
     },
+    setQueryError: (state, action) => {
+      state.queryError = action.payload;
+    },
+    setDeleteError: (state, action) => {
+      state.deleteError = action.payload;
+    }
   },
 });
 
-export const { setSongs, toggleSpotify, saveQuery } = songsSlice.actions;
+export const { setSongs, toggleSpotify, saveQuery, setQueryError, setDeleteError } = songsSlice.actions;
 
 export default songsSlice.reducer;

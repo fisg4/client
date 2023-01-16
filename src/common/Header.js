@@ -18,7 +18,7 @@ function Header() {
               </a>
             </div>
             <div className="col-8 text-center">
-              <Link to="/songs">
+              <Link to="/">
                 <img src={logo} className="img-fluid header-logo" alt="FastMusik logo" />
               </Link>
             </div>

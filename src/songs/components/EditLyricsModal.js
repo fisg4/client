@@ -1,16 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setLyrics, setInput } from "../slices/lyricsSlice";
+import { setLyrics, setInput, setLyricsRequestError } from "../slices/lyricsSlice";
 
 function EditLyricsModal({ songId }) {
     const dispatch = useDispatch();
     const lyricsState = useSelector((state) => state.lyrics);
 
     async function editLyrics(endpoint, songId, newLyrics) {
+        if (newLyrics.trim() === "") {
+            dispatch(setLyricsRequestError("Lyrics cannot be empty."));
+            return;
+        }
         const request = new Request(`${endpoint}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                "Authorization": `Bearer ${localStorage?.getItem("token")}`,
             },
             body: JSON.stringify({
                 id: songId,
@@ -21,10 +25,12 @@ function EditLyricsModal({ songId }) {
         const response = await fetch(request);
 
         if (!response.ok) {
+            dispatch(setLyricsRequestError("There was a problem adding the lyrics. Please try again."));
             throw Error("Response not valid. " + response.status);
         }
 
         dispatch(setLyrics(newLyrics));
+        dispatch(setLyricsRequestError(null));
 
     }
 
