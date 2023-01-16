@@ -6,6 +6,8 @@ function Song({ song, storable }) {
   const navigate = useNavigate();
 
   async function saveSong(song) {
+    !localStorage.getItem("token") && navigate("/me");
+
     const request = new Request("/api/v1/songs/", {
       method: "POST",
       headers: {
@@ -66,8 +68,8 @@ function Song({ song, storable }) {
         )}
       </div>
       {alreadyExists ? (
-        <div className="mx-2 my-3">
-          <div className="toast w-auto align-items-center border-0 bg-warning show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div className="mx-2 my-3 d-flex justify-content-center">
+          <div className="toast align-items-center border-0 bg-warning show" role="alert" aria-live="assertive" aria-atomic="true">
             <div className="d-flex">
               <div className="toast-body fw-semibold">
                 This song already exists in FastMusik

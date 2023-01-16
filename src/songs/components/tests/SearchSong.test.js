@@ -51,7 +51,7 @@ describe("Search Song Tests", () => {
       { container }
     );
     expect(container.querySelector("button.bg-blue.fw-semibold").innerHTML).toBe(
-      '<i class="bi bi-spotify text-dark"></i> Search on Spotify'
+      '<i class="bi bi-spotify"></i> Search on Spotify'
     );
     unmount();
   });

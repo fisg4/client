@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLyrics, setInput } from "../slices/lyricsSlice";
 import { setAudioUrl, setVideoUrl } from "../slices/songMediaSlice";
-import { setSongs } from "../slices/songsSlice";
+import { setSongs, setDeleteError } from "../slices/songsSlice";
 
 function DeleteSongButton({ songId }) {
   const dispatch = useDispatch();
@@ -19,7 +19,8 @@ function DeleteSongButton({ songId }) {
 
     const response = await fetch(request);
 
-    if (!response.ok) {
+    if (response.ok) {
+      dispatch(setDeleteError("There was a problem deleting the song. Try again later."));
       throw Error("Response not valid. " + response.status);
     }
 
@@ -28,6 +29,7 @@ function DeleteSongButton({ songId }) {
     dispatch(setAudioUrl(""));
     dispatch(setVideoUrl(""));
     dispatch(setSongs(songsState.songs.filter((song) => song.id !== songId)));
+    dispatch(setDeleteError(null));
 
     navigate("/songs");
   }

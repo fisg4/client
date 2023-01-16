@@ -1,6 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setLyricsRequestError } from "../slices/lyricsSlice";
 import EditLyricsModal from "./EditLyricsModal";
 
 function SongLyrics({ song, text }) {
+  const dispatch = useDispatch();
+  const { lyricsRequestError } = useSelector((state) => state.lyrics);
+
+  function onAlertClose() {
+    dispatch(setLyricsRequestError(null));
+  }
 
   return (
     <>
@@ -15,16 +23,31 @@ function SongLyrics({ song, text }) {
             </a>
           </div>
         )}
+        {lyricsRequestError !== null && (
+          <div className="my-3">
+            <div className="toast align-items-center border-0 bg-warning show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div className="d-flex">
+                <div className="toast-body fw-semibold">
+                  {lyricsRequestError}
+                </div>
+                <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"
+                  onClick={onAlertClose}></button>
+              </div>
+            </div>
+          </div>
+        )}
         <EditLyricsModal songId={song?.id} />
       </div>
       {text?.lyrics ? (
-        <p className="card-text avoidInline">{text?.lyrics}</p>
+        <p className="card-text avoidInline mt-3">{text?.lyrics}</p>
       ) : (
         <div>
           <p className="card-text mt-2">No lyrics found</p>
-          <button id="add-lyrics-btn" className="btn border-purple text-purple bg-blue" data-bs-toggle="modal" data-bs-target="#lyricsModal">
-            Add Lyrics
-          </button>
+          {localStorage.getItem("token") && (
+            <button id="add-lyrics-btn" className="btn border-purple text-purple bg-blue" data-bs-toggle="modal" data-bs-target="#lyricsModal">
+              Add Lyrics
+            </button>
+          )}
         </div>
       )}
     </>

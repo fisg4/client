@@ -6,7 +6,7 @@ function LikeCounter({ songId, numLikes }) {
     <>
       {localStorage.getItem('token') ? (
         <Link to={`/songs/${songId}/likes`}
-          className="h4 link-dark text-decoration-none"
+          className="h4 darkBlueText text-decoration-none"
         >{numLikes === 1 ? `${numLikes} like` : `${numLikes} likes`}
         </Link>
       ) : (
