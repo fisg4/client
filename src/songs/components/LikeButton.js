@@ -1,3 +1,4 @@
+// This component is the responsibility of the user microservice team (ms-users)
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setCount } from '../slices/likesSlice';

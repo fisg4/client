@@ -17,3 +17,7 @@ export function renderWithProviders(
   }
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export function setLocalStorage(key, value) {
+  window.localStorage.setItem(key, JSON.stringify(value));
+}
