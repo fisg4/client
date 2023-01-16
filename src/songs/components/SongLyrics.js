@@ -18,20 +18,38 @@ function SongLyrics({ song, text }) {
         </div>
         {localStorage.getItem("token") && text?.lyrics && (
           <div className="col-6 col-lg-2 text-end text-lg-start ps-0">
-            <a href="#edit" className="fs-2 darkBlueText" data-bs-toggle="modal" data-bs-target="#lyricsModal">
+            <a
+              href="#edit"
+              className="fs-2 darkBlueText"
+              data-bs-toggle="modal"
+              data-bs-target="#lyricsModal"
+            >
               <i className="bi bi-pencil-square"></i>
             </a>
           </div>
         )}
         {lyricsRequestError !== null && (
           <div className="my-3">
-            <div className="toast align-items-center border-0 bg-warning show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div
+              className="toast align-items-center border-0 bg-warning show"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
               <div className="d-flex">
-                <div className="toast-body fw-semibold">
+                <div
+                  data-test-id="lyricsRequestError"
+                  className="toast-body fw-semibold"
+                >
                   {lyricsRequestError}
                 </div>
-                <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"
-                  onClick={onAlertClose}></button>
+                <button
+                  type="button"
+                  className="btn-close me-2 m-auto"
+                  data-bs-dismiss="toast"
+                  aria-label="Close"
+                  onClick={onAlertClose}
+                ></button>
               </div>
             </div>
           </div>
@@ -44,7 +62,13 @@ function SongLyrics({ song, text }) {
         <div>
           <p className="card-text mt-2">No lyrics found</p>
           {localStorage.getItem("token") && (
-            <button id="add-lyrics-btn" className="btn border-purple text-purple bg-blue" data-bs-toggle="modal" data-bs-target="#lyricsModal">
+            <button
+              data-test-id="addLyricsBtn"
+              id="add-lyrics-btn"
+              className="btn border-purple text-purple bg-blue"
+              data-bs-toggle="modal"
+              data-bs-target="#lyricsModal"
+            >
               Add Lyrics
             </button>
           )}
