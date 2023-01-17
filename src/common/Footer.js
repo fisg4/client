@@ -8,7 +8,7 @@ function Footer() {
                 <li className="nav-item"><Link to="/pricing" className="nav-link px-2 text-muted">Pricing</Link></li>
                 <li className="nav-item"><Link to="/support" className="nav-link px-2 text-muted">Contact us</Link></li>
             </ul>
-            <p>© 2022 FastMusik app</p>
+            <p>© 2022 FastMusik app - Made with <i className="bi bi-heart-fill text-purple"></i></p>
         </footer>
     );
 }

@@ -43,7 +43,7 @@ function CustomerAgreement() {
             Pricing
           </h2>
           <p className="fs-5 mt-3">
-            We are currently in the process of setting up our pricing model.
+            Flexible pricing options to suit your needs.
           </p>
           <Link to="/pricing" className="darkBlueText text-decoration-none fs-3 fw-semibold">
             <i className="bi bi-file-text text-dark fs-2"></i> Pricing
