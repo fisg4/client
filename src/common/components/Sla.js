@@ -46,6 +46,35 @@ function Sla() {
             It will be applied only to future charges and is also issued to the card you used to sign up.
           </p>
 
+          <h2>Support compromise</h2>
+          <p className="fs-5 mt-3">
+            As for the SLA-guaranteed support, it will only be available to those users who have a paid account with FastMusik. The commitment that FastMusik will make is at the level of response time of a ticket according to its priority.
+          </p>
+          <table className="table fs-5">
+            <thead>
+              <tr>
+                <th scope="col">Priority</th>
+                <th scope="col">Response time</th>
+              </tr>
+            </thead>
+            <tbody className="table-group-divider">
+              <tr>
+                <td>High</td>
+                <td>1 hour*</td>
+              </tr>
+              <tr>
+                <td>Medium</td>
+                <td>3 hours*</td>
+              </tr>
+              <tr>
+                <td>Low</td>
+                <td>9 hours*</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <p>*Working hours from 9:00 a.m. to 2:00 p.m. and from 5:00 p.m. to 9:00 p.m.</p>
+
           <h2>Credit Request and Payment Procedures</h2>
           <p className="fs-5 mt-3">
           In order to receive compensation for non-compliance you must generate a ticket in the FastMusik support center.
@@ -82,7 +111,6 @@ function Sla() {
               <li className="mt-2"><strong>Uptime Percentage</strong>. It is calculated as 100% of minutes during the month in which the FastMusik service is available.</li>
             </ul>
           </p>
-
 
         </div>
       </div>

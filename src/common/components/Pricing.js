@@ -12,6 +12,11 @@ function Pricing() {
                   <th className="text-center" scope="col">Basic</th>
                   <th className="text-center" scope="col">Pro</th>
                 </tr>
+                <tr>
+                  <td></td>
+                  <td className="text-center">Free</td>
+                  <td className="text-center">$4.99</td>
+                </tr>
               </thead>
               <tbody className="table-group-divider">
                 <tr>
@@ -24,11 +29,11 @@ function Pricing() {
                 <tr>
                   <td>Add songs to the system</td>
                   <td className="text-center">
-                    <i className="h1 bi bi-check-circle-fill textGreen"> </i>
-                    <p className="fw-semibold fs-6">* limited to 5</p></td>
+                    <i className="h1 bi bi-x-circle-fill textRed"> </i>
+                  </td>
                   <td className="text-center">
                     <i className="h1 bi bi-check-circle-fill textGreen"></i>
-                    <p className="fw-semibold fs-6">unlimited</p>
+                    <p className="fw-semibold fs-6">* max 1 per minute</p>
                   </td>
                 </tr>
                 <tr>
@@ -70,7 +75,7 @@ function Pricing() {
                 <tr>
                   <td>Incidence of fake urls</td>
                   <td className="text-center">
-                    <i className="h1 bi bi-x-circle-fill textRed"></i>
+                    <i className="h1 bi bi-check-circle-fill textGreen"></i>
                   </td>
                   <td className="text-center">
                     <i className="h1 bi bi-check-circle-fill textGreen"></i>
