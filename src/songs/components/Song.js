@@ -39,7 +39,7 @@ function Song({ song, storable }) {
         <img
           src={song.albumCover}
           alt={`Album cover of ${song.title}`}
-          className="d-none d-md-block img-fluid"
+          className="d-none d-md-block img-fluid shadow-sm"
         />
         <div className="d-flex flex-column justify-content-between cardContent">
           <h5 className="cardTitle">{song.title}</h5>
@@ -51,7 +51,7 @@ function Song({ song, storable }) {
         {storable ? (
           <div>
             <div
-              className="btnAddSong d-flex justify-content-center align-items-center"
+              className="btnAddSong d-flex justify-content-center align-items-center shadow-sm"
               onClick={() => saveSong(song)}
             >
               <i className="bi bi-plus-lg fs-3"></i>
@@ -60,7 +60,7 @@ function Song({ song, storable }) {
         ) : (
           <div>
             <Link to={`/songs/${song.id}`}>
-              <div className="btnAddSong d-flex justify-content-center align-items-center">
+              <div className="btnAddSong d-flex justify-content-center align-items-center shadow">
                 <i className="bi bi-music-note-beamed fs-3"></i>
               </div>
             </Link>

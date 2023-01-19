@@ -4,6 +4,10 @@ import Footer from './common/Footer';
 import Header from './common/Header';
 import Home from './common/Home';
 import ErrorPage from './common/ErrorPage';
+import CustomerAgreement from './common/components/CustomerAgreement';
+import Terms from './common/components/Terms';
+import Sla from './common/components/Sla';
+import Pricing from './common/components/Pricing';
 import Songs from './songs/Songs';
 import Users from './users/Users';
 import Chats from './messages/Chats';
@@ -36,6 +40,10 @@ function App() {
                 </Route>
               </Route>
               <Route path="/support" element={<CreateTicket />} />
+              <Route path="/customer-agreement" element={<CustomerAgreement/>} />
+              <Route path="/customer-agreement/terms-of-use" element={<Terms/>} />
+              <Route path="/customer-agreement/sla" element={<Sla/>} />
+              <Route path="/pricing" element={<Pricing/>} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
             <br />
